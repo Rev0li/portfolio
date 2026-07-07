@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rev0li-dev | Portfolio</title>
+    <title>Oliver Kientzler — Développeur Full-Stack</title>
+    <meta name="description" content="Oliver Kientzler, développeur full-stack et architecte logiciel — 42 Lyon, projet Transcendence, développement web.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ═══════════════════ RESET & VARIABLES ═══════════════════ */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #0a0e1a;
-            --bg2: #111827;
-            --card: #1a2332;
-            --card-hover: #1e293b;
-            --text: #e2e8f0;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent2: #818cf8;
-            --accent3: #34d399;
-            --glow: rgba(56, 189, 248, 0.15);
-            --border: #1e293b;
-            --radius: 16px;
+            --bg: #0b0d10;
+            --bg2: #101317;
+            --card: #14171c;
+            --border: #24282f;
+            --text: #e5e7eb;
+            --text-muted: #8b93a1;
+            --accent: #c2601f;
+            --accent-soft: rgba(194, 96, 31, 0.12);
+            --radius: 8px;
         }
 
         html { scroll-behavior: smooth; }
@@ -31,779 +28,531 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
+            line-height: 1.65;
+            font-size: 16px;
         }
 
-        /* ═══════════════════ BACKGROUND PARTICLES ═══════════════════ */
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(56, 189, 248, 0.06) 1px, transparent 0);
-            background-size: 40px 40px;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: 0;
-            animation: blobFloat 20s ease-in-out infinite;
-        }
-        .blob-1 { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
-        .blob-2 { width: 400px; height: 400px; background: var(--accent2); bottom: -50px; left: -100px; animation-delay: -7s; }
-        .blob-3 { width: 300px; height: 300px; background: var(--accent3); top: 50%; left: 50%; animation-delay: -14s; }
-
-        @keyframes blobFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -40px) scale(1.05); }
-            66% { transform: translate(-20px, 30px) scale(0.95); }
-        }
-
-        /* ═══════════════════ LAYOUT ═══════════════════ */
         .container {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
+            max-width: 780px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 24px;
         }
 
-        /* ═══════════════════ NAV ═══════════════════ */
+        /* NAV */
         nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
+            position: sticky;
+            top: 0;
             z-index: 100;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 14, 26, 0.8);
+            background: rgba(11, 13, 16, 0.92);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
-            padding: 15px 0;
         }
         nav .nav-inner {
-            max-width: 900px;
+            max-width: 780px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .nav-logo {
             font-family: 'Fira Code', monospace;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
             text-decoration: none;
         }
-        .nav-logo span { color: var(--text-muted); }
-        .nav-links { display: flex; gap: 25px; }
+        .nav-logo .dot { color: var(--accent); }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
-            transition: color 0.3s;
+            font-size: 0.88rem;
+            transition: color 0.2s;
         }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover { color: var(--text); }
 
-        /* ═══════════════════ HERO ═══════════════════ */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 60px;
-        }
-
-        .terminal-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 8px 18px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--accent3);
-            margin-bottom: 30px;
-            animation: fadeInDown 0.8s ease;
-        }
-        .terminal-badge .dot {
-            width: 8px; height: 8px;
-            background: var(--accent3);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            animation: fadeInUp 0.8s ease;
-        }
-        .hero h1 .wave { display: inline-block; animation: wave 2.5s ease-in-out infinite; transform-origin: 70% 70%; }
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            10% { transform: rotate(14deg); }
-            20% { transform: rotate(-8deg); }
-            30% { transform: rotate(14deg); }
-            40% { transform: rotate(-4deg); }
-            50% { transform: rotate(10deg); }
-            60%, 100% { transform: rotate(0deg); }
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero .subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .hero-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-        .hero-tag {
+        /* HERO */
+        .hero { padding: 72px 0 56px; }
+        .hero .eyebrow {
             font-family: 'Fira Code', monospace;
             font-size: 0.78rem;
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text-muted);
-            transition: all 0.3s;
-        }
-        .hero-tag:hover {
-            border-color: var(--accent);
             color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px var(--glow);
+            letter-spacing: 0.04em;
+            margin-bottom: 16px;
         }
-
-        .scroll-hint {
-            margin-top: 60px;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-        .scroll-hint .arrow {
-            display: block;
-            width: 24px; height: 24px;
-            margin: 0 auto;
-            border-right: 2px solid var(--accent);
-            border-bottom: 2px solid var(--accent);
-            transform: rotate(45deg);
-            animation: scrollBounce 2s ease-in-out infinite;
-            opacity: 0.5;
-        }
-        @keyframes scrollBounce {
-            0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.3; }
-            50% { transform: rotate(45deg) translate(5px, 5px); opacity: 0.7; }
-        }
-
-        /* ═══════════════════ SECTIONS ═══════════════════ */
-        section { padding: 80px 0; }
-        .section-label {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 3px;
+        .hero h1 {
+            font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+            font-weight: 700;
+            line-height: 1.2;
             margin-bottom: 10px;
         }
+        .hero .role {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .hero .lede {
+            color: var(--text-muted);
+            max-width: 60ch;
+            margin-bottom: 28px;
+        }
+        .hero .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 22px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .hero .meta a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); }
+        .hero .meta a:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* SECTIONS */
+        section { padding: 48px 0; border-top: 1px solid var(--border); }
         .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 800;
-            margin-bottom: 50px;
+            font-size: 0.78rem;
+            font-family: 'Fira Code', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 28px;
         }
 
-        /* ═══════════════════ PROJECT CARDS ═══════════════════ */
-        .projects-grid {
-            display: grid;
-            gap: 25px;
+        /* ABOUT */
+        .about p { color: var(--text-muted); margin-bottom: 14px; max-width: 65ch; }
+        .about strong { color: var(--text); font-weight: 500; }
+
+        /* EXPERIENCE */
+        .timeline { display: flex; flex-direction: column; gap: 36px; }
+        .entry-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            margin-bottom: 4px;
+        }
+        .entry-title { font-size: 1.02rem; font-weight: 600; }
+        .entry-period {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+        .entry-org { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px; }
+        .entry-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .entry-list li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding-left: 16px;
+            position: relative;
+        }
+        .entry-list li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--border);
+        }
+        .entry-list li strong { color: var(--text); font-weight: 500; }
+        .entry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            padding: 3px 9px;
+            border-radius: 5px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
         }
 
+        /* PROJECT */
         .project-card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 30px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
+            padding: 26px;
         }
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .project-card:hover {
-            border-color: rgba(56, 189, 248, 0.3);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px var(--glow);
-        }
-        .project-card:hover::before { opacity: 1; }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .card-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        .card-icon.blue { background: rgba(56, 189, 248, 0.15); }
-        .card-icon.purple { background: rgba(129, 140, 248, 0.15); }
-        .card-icon.green { background: rgba(52, 211, 153, 0.15); }
-        .card-icon.orange { background: rgba(251, 146, 60, 0.15); }
-
-        .card-header h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .card-story {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            padding: 12px 16px;
-            background: rgba(56, 189, 248, 0.04);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-
-        .card-desc {
-            font-size: 0.95rem;
-            color: var(--text);
-            margin-bottom: 20px;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .card-tag {
+        .project-card + .project-card { margin-top: 20px; }
+        .project-link {
             font-family: 'Fira Code', monospace;
-            font-size: 0.72rem;
-            padding: 4px 10px;
-            border-radius: 6px;
-            background: rgba(56, 189, 248, 0.08);
+            font-size: 0.8rem;
             color: var(--accent);
-            border: 1px solid rgba(56, 189, 248, 0.15);
+            text-decoration: none;
         }
-
-        /* ═══════════════════ ABOUT SECTION ═══════════════════ */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-        .about-text { font-size: 0.95rem; color: var(--text-muted); }
-        .about-text p { margin-bottom: 15px; }
-        .about-text strong { color: var(--text); }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .stat-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .stat-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-label {
-            font-size: 0.78rem;
+        .project-link:hover { text-decoration: underline; }
+        .project-desc {
+            font-size: 0.92rem;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin: 10px 0 14px;
+            max-width: 65ch;
         }
+        .project-desc strong { color: var(--text); font-weight: 500; }
+        .other-projects {
+            list-style: none;
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .other-projects li { font-size: 0.9rem; color: var(--text-muted); }
+        .other-projects a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .other-projects a:hover { color: var(--accent); border-color: var(--accent); }
 
-        /* ═══════════════════ PHILOSOPHY / FUN SECTION ═══════════════════ */
-        .philosophy-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
         }
-        .philosophy-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-        }
-        .philosophy-quote {
-            font-size: 1.4rem;
+        .skill-group h3 {
+            font-size: 0.82rem;
             font-weight: 600;
             margin-bottom: 10px;
-            line-height: 1.5;
+            color: var(--text);
         }
-        .philosophy-author {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-        /* ═══════════════════ TECH STACK SECTION ═══════════════════ */
-        .stack-grid {
+        /* FORMATION */
+        .formation-item { margin-bottom: 20px; }
+        .formation-item:last-child { margin-bottom: 0; }
+        .formation-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .formation-degree { font-weight: 600; font-size: 0.92rem; }
+        .formation-period { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent); }
+        .formation-place { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* SOFT / LANG */
+        .side-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
         }
-        .stack-item {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: default;
-        }
-        .stack-item:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .stack-item .icon { font-size: 2rem; margin-bottom: 8px; }
-        .stack-item .name { font-size: 0.85rem; font-weight: 600; }
-        .stack-item .level {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
+        .side-grid ul { list-style: none; }
+        .side-grid li { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px; }
+        .side-grid li strong { color: var(--text); font-weight: 500; }
 
-        /* ═══════════════════ FOOTER ═══════════════════ */
+        /* CONTACT / FOOTER */
         footer {
-            text-align: center;
-            padding: 60px 20px;
+            padding: 56px 0 64px;
             border-top: 1px solid var(--border);
-            margin-top: 40px;
         }
-        footer .server-info {
+        footer .contact-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        footer .contact-line a { color: var(--accent); text-decoration: none; }
+        footer .contact-line a:hover { text-decoration: underline; }
+        footer .fine-print {
+            font-size: 0.78rem;
+            color: #4b5058;
             font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--card);
-            padding: 8px 16px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-        }
-        footer .server-info .live-dot {
-            width: 6px; height: 6px;
-            background: var(--accent3);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        footer p {
-            color: #475569;
-            font-size: 0.8rem;
-            margin-top: 15px;
         }
 
-        /* ═══════════════════ ANIMATIONS ═══════════════════ */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ═══════════════════ RESPONSIVE ═══════════════════ */
-        @media (max-width: 640px) {
-            .about-content { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .nav-links { gap: 15px; }
-            .nav-links a { font-size: 0.8rem; }
-            .project-card { padding: 22px; }
-        }
-
-        /* ═══════════════════ TYPEWRITER ═══════════════════ */
-        .typewriter {
-            font-family: 'Fira Code', monospace;
-            color: var(--accent);
-            border-right: 2px solid var(--accent);
-            animation: blink 0.8s step-end infinite;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        /* ═══════════════════ EASTER EGG ═══════════════════ */
-        .konami-activated {
-            animation: rainbow 2s linear infinite;
-        }
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+        @media (max-width: 600px) {
+            .skills-grid, .side-grid { grid-template-columns: 1fr; }
+            .nav-inner { flex-wrap: wrap; gap: 8px 0; padding: 14px 20px; }
+            .nav-links { gap: 12px; flex-wrap: wrap; }
+            .nav-links a { font-size: 0.76rem; }
+            .hero { padding: 48px 0 36px; }
+            .container { padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Background FX -->
-<div class="bg-grid"></div>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="blob blob-3"></div>
-
-<!-- Navigation -->
 <nav>
     <div class="nav-inner">
-        <a href="#" class="nav-logo">rev0li<span>-dev</span></a>
-        <div class="nav-links">
-            <a href="#projets">Projets</a>
-            <a href="#stack">Stack</a>
-            <a href="#about">À propos</a>
-        </div>
+        <a href="#" class="nav-logo">oliver<span class="dot">.</span>kientzler</a>
+        <ul class="nav-links">
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#experience">Expérience</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#formation">Formation</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </div>
 </nav>
 
 <div class="container">
 
-    <!-- ═══════════════ HERO ═══════════════ -->
     <section class="hero">
-        <div class="terminal-badge">
-            <span class="dot"></span>
-            ~/portfolio $ cargo run
-        </div>
-        <h1>
-            <span class="wave">👋</span> Hey, moi c'est<br>
-            <span class="gradient-text">rev0li-dev</span>
-        </h1>
-        <p class="subtitle">
-            Dev 42 · Passionné d'automatisation, de souveraineté numérique et de solutions qui font le taf. 
-            <br>Je code, je self-host, je casse, je répare. 
+        <p class="eyebrow">// Développeur full-stack</p>
+        <h1>Oliver Kientzler</h1>
+        <p class="role">Développeur Full-Stack &amp; Architecte Logiciel — Lyon, France</p>
+        <p class="lede">
+            Développeur full-stack polyvalent et autonome, j'aime comprendre les besoins d'un projet pour
+            créer des solutions simples, efficaces et utiles. Actuellement architecte logiciel et lead
+            technique sur le projet <strong>Transcendence</strong> à 42 Lyon.
         </p>
-        <div class="hero-tags">
-            <span class="hero-tag">🐍 Python</span>
-            <span class="hero-tag">🦀 Rust</span>
-            <span class="hero-tag">🐳 Docker</span>
-            <span class="hero-tag">🛡️ Security</span>
-            <span class="hero-tag">🧠 AI Local</span>
-            <span class="hero-tag">🏠 Self-Hosting</span>
-        </div>
-        <div class="scroll-hint">
-            <span class="arrow"></span>
+        <div class="meta">
+            <span>Lyon, France</span>
+            <a href="https://github.com/Rev0li" target="_blank" rel="noopener">github.com/Rev0li</a>
+            <a href="mailto:chester.snyder143@anonaddy.me">chester.snyder143@anonaddy.me</a>
         </div>
     </section>
 
-    <!-- ═══════════════ PROJETS ═══════════════ -->
+    <section id="about" class="about">
+        <p class="section-title">À propos</p>
+        <p>
+            Mon parcours m'a amené à toucher plusieurs univers — développement web, blockchain,
+            production vidéo, e-commerce — ce qui m'a permis de devenir rapidement <strong>adaptable
+            et réactif</strong> face à des contextes différents. Depuis 2023, utilisateur IA au
+            quotidien, j'ai conçu et j'administre ma propre <strong>infrastructure auto-hébergée</strong>.
+        </p>
+        <p>
+            J'apprécie autant la réflexion produit que la construction technique, avec le souci de
+            livrer des projets bien structurés, clairs et réellement fonctionnels. À l'aise dans le
+            travail d'équipe, je sais aussi bien prendre des initiatives que clarifier les besoins et
+            expliquer les choix techniques.
+        </p>
+    </section>
+
     <section id="projets">
-        <p class="section-label">// Projets</p>
-        <h2 class="section-title">Ce que j'ai construit 🔨</h2>
+        <p class="section-title">Projets</p>
 
-        <div class="projects-grid">
-
-            <div class="project-card" data-delay="0">
-                <div class="card-header">
-                    <div class="card-icon blue">🎵</div>
-                    <h3>Songsurf</h3>
-                </div>
-                <div class="card-story">
-                    💡 Marre des algorithmes qui décident ce que j'écoute. J'ai voulu reprendre le contrôle sur ma musique et construire ma propre bibliothèque hors-ligne.
-                </div>
-                <p class="card-desc">
-                    Fork de <strong>yt-dlp</strong> couplé à <strong>FFmpeg</strong> pour télécharger, convertir et organiser automatiquement des flux audio avec gestion fine des métadonnées. Aucune dépendance cloud.
-                </p>
-                <div class="card-tags">
-                    <span class="card-tag">Python</span>
-                    <span class="card-tag">FFmpeg</span>
-                    <span class="card-tag">yt-dlp</span>
-                    <span class="card-tag">Terminal</span>
-                </div>
+        <div class="project-card">
+            <div class="entry-head">
+                <span class="entry-title">Transcendence — jeu multijoueur temps réel</span>
+                <a class="project-link" href="https://github.com/Rev0li/transcendance" target="_blank" rel="noopener">github.com/Rev0li/transcendance →</a>
             </div>
-
-            <div class="project-card" data-delay="100">
-                <div class="card-header">
-                    <div class="card-icon purple">🛡️</div>
-                    <h3>Guardian_revo</h3>
-                </div>
-                <div class="card-story">
-                    💡 Mes proches se faisaient piéger par des malwares. J'ai créé un outil pour qu'ils génèrent un rapport de santé en un clic et sachent s'ils doivent m'appeler à l'aide.
-                </div>
-                <p class="card-desc">
-                    Scanner de registre Windows + extension Chrome pour détecter les anomalies et les intrusions. Un diagnostic complet en quelques secondes, même pour les non-techniciens.
-                </p>
-                <div class="card-tags">
-                    <span class="card-tag">JavaScript</span>
-                    <span class="card-tag">Registry</span>
-                    <span class="card-tag">Chrome Extension</span>
-                    <span class="card-tag">Security</span>
-                </div>
-            </div>
-
-            <div class="project-card" data-delay="200">
-                <div class="card-header">
-                    <div class="card-icon green">🎤</div>
-                    <h3>Speech to Text Local</h3>
-                </div>
-                <div class="card-story">
-                    💡 Dicter mes pensées sans que mes données vocales partent sur des serveurs tiers ? Challenge accepted. 100% local, 0% compromis sur la vie privée.
-                </div>
-                <p class="card-desc">
-                    Moteur de reconnaissance vocale intégralement local. Pas de cloud, pas de latence réseau, pas de fuites. Juste toi et ta voix.
-                </p>
-                <div class="card-tags">
-                    <span class="card-tag">AI / ML</span>
-                    <span class="card-tag">Local-first</span>
-                    <span class="card-tag">Privacy</span>
-                    <span class="card-tag">Productivity</span>
-                </div>
-            </div>
-
-            <div class="project-card" data-delay="300">
-                <div class="card-header">
-                    <div class="card-icon orange">🏗️</div>
-                    <h3>Infrastructure NAS & Cloud Privé</h3>
-                </div>
-                <div class="card-story">
-                    💡 Le cœur de mon écosystème : centraliser mes données, auto-héberger mes projets (comme ce portfolio que tu lis en ce moment 😏) et zéro abonnement mensuel.
-                </div>
-                <p class="card-desc">
-                    Serveur de fichiers + Cloud privé sécurisé + Jellyfin pour le multimédia. Tout orchestré avec Docker sur Synology. Ce portfolio tourne dessus.
-                </p>
-                <div class="card-tags">
-                    <span class="card-tag">Docker</span>
-                    <span class="card-tag">Synology</span>
-                    <span class="card-tag">Networking</span>
-                    <span class="card-tag">Jellyfin</span>
-                    <span class="card-tag">Self-hosted</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ═══════════════ STACK ═══════════════ -->
-    <section id="stack">
-        <p class="section-label">// Tech Stack</p>
-        <h2 class="section-title">Mes outils du quotidien 🧰</h2>
-
-        <div class="stack-grid">
-            <div class="stack-item fade-in">
-                <div class="icon">🐍</div>
-                <div class="name">Python</div>
-                <div class="level">Automatisation</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">🦀</div>
-                <div class="name">Rust</div>
-                <div class="level">En apprentissage</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">🟨</div>
-                <div class="name">JavaScript</div>
-                <div class="level">Extensions & Web</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">🐳</div>
-                <div class="name">Docker</div>
-                <div class="level">Déploiement</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">🐧</div>
-                <div class="name">Linux</div>
-                <div class="level">Serveurs</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">🔒</div>
-                <div class="name">Cybersécurité</div>
-                <div class="level">Passion</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">🧠</div>
-                <div class="name">AI / ML</div>
-                <div class="level">Local-first</div>
-            </div>
-            <div class="stack-item fade-in">
-                <div class="icon">⚙️</div>
-                <div class="name">Git</div>
-                <div class="level">Versionning</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ PHILOSOPHY ═══════════════ -->
-    <section>
-        <div class="philosophy-card fade-in">
-            <p class="philosophy-quote">
-                "Si ça tourne pas en local, ça tourne pas chez moi." 🏠
+            <p class="project-desc">
+                Jeu d'artillerie de tanks en tour par tour sur terrain destructible généré procéduralement,
+                développé en équipe de 5 dans le cadre du cursus 42. Serveur de jeu autoritaire en WebSocket,
+                physique synchronisée et logique de reconnexion.
             </p>
-            <p class="philosophy-author">— philosophie de dev, entre deux docker-compose up</p>
+            <ul class="entry-list">
+                <li><strong>Product Manager / Scrum Master</strong> — organisation de l'équipe, priorisation, documentation et rituels projet.</li>
+                <li><strong>Authentification complète</strong> — Better-Auth : email/mot de passe, OAuth Google, 2FA TOTP.</li>
+                <li><strong>Chat temps réel in-game</strong> et interface du lobby (matchmaking, invitations).</li>
+            </ul>
+            <div class="entry-tags">
+                <span class="tag">TypeScript</span>
+                <span class="tag">SvelteKit</span>
+                <span class="tag">Svelte 5</span>
+                <span class="tag">Colyseus</span>
+                <span class="tag">Phaser 4</span>
+                <span class="tag">Prisma</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">TailwindCSS</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Caddy</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="entry-head">
+                <span class="entry-title">Infrastructure auto-hébergée</span>
+                <span class="entry-period">Depuis 2023</span>
+            </div>
+            <p class="project-desc">
+                Écosystème personnel complet, conçu et administré de bout en bout sur mon propre matériel :
+                <strong>ce portfolio est compilé et servi depuis cette infrastructure</strong>.
+            </p>
+            <ul class="entry-list">
+                <li><strong>Services auto-hébergés</strong> — cloud privé, médiathèque, portail d'authentification maison (rev0auth).</li>
+                <li><strong>Accès distant sécurisé</strong> — VPN Tailscale, reverse proxy et TLS.</li>
+                <li><strong>Déploiement conteneurisé</strong> — chaque service isolé dans Docker, dont ce site (binaire Rust/Axum).</li>
+            </ul>
+            <div class="entry-tags">
+                <span class="tag">Docker</span>
+                <span class="tag">Linux</span>
+                <span class="tag">Tailscale</span>
+                <span class="tag">Nginx</span>
+                <span class="tag">Rust</span>
+                <span class="tag">Axum</span>
+            </div>
+        </div>
+
+        <ul class="other-projects">
+            <li><a href="https://github.com/Rev0li/Mini_rt" target="_blank" rel="noopener">Mini_rt</a> — moteur de raytracing écrit en C (cursus 42) : rendu de scènes 3D, lumières et ombres.</li>
+            <li><a href="https://github.com/Rev0li/whisper-type" target="_blank" rel="noopener">whisper-type</a> — outil custom de speech-to-text : daemon 100 % local pour dicter dans n'importe quel champ de saisie (Python).</li>
+            <li><a href="https://github.com/Rev0li/Fedora-Hyprland-revo" target="_blank" rel="noopener">Fedora-Hyprland-revo</a> — installation automatisée de Hyprland sur Fedora : mon environnement de travail, personnalisé jusqu'à l'OS (Shell).</li>
+            <li><a href="https://github.com/Rev0li/SongSurf" target="_blank" rel="noopener">SongSurf</a> — outil de téléchargement et d'organisation audio, fork de yt-dlp (Python).</li>
+            <li><a href="https://github.com/Rev0li/explain-contract" target="_blank" rel="noopener">explain-contract</a> — smart contracts fonctionnels annotés en français (Solidity).</li>
+        </ul>
+    </section>
+
+    <section id="experience">
+        <p class="section-title">Expérience</p>
+        <div class="timeline">
+
+            <div class="entry">
+                <div class="entry-head">
+                    <span class="entry-title">Architecte Logiciel &amp; Lead Projet — Transcendence</span>
+                    <span class="entry-period">Depuis 2026</span>
+                </div>
+                <p class="entry-org">42 Lyon · Charbonnières-les-Bains, France</p>
+                <ul class="entry-list">
+                    <li>Lead d'une équipe de 5 personnes en tant que product manager et développeur full-stack sur <strong>Transcendence</strong> (voir projet phare ci-dessus) : jeu temps réel, matchmaking, authentification 2FA et OAuth Google.</li>
+                    <li>Mise en place des canaux de documentation et de communication : Obsidian auto-hébergé, Discord, réunions en présentiel.</li>
+                    <li>Déploiement d'une VM de production avec Nginx, Docker et SQLite.</li>
+                    <li><strong>Minishell</strong> — reproduction d'une partie d'un shell Unix. <strong>Push-swap</strong> — algorithme de tri optimisé. <strong>Lib_ft</strong> — réimplémentation d'une librairie standard en C.</li>
+                </ul>
+                <div class="entry-tags">
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">SvelteKit</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Prisma</span>
+                    <span class="tag">SQLite</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Colyseus</span>
+                    <span class="tag">Phaser 4</span>
+                    <span class="tag">C</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-head">
+                    <span class="entry-title">Entrepreneur &amp; Fondateur Technique — Revoli</span>
+                    <span class="entry-period">2020 — 2024</span>
+                </div>
+                <p class="entry-org">Lyon, France</p>
+                <ul class="entry-list">
+                    <li><strong>2023–2024</strong> — Formation blockchain et développement web.</li>
+                    <li><strong>2020–2023</strong> — Production vidéo et marketing pour restaurants, mariages, créateurs de contenu et professionnels de l'immobilier : tournage, montage, livraison.</li>
+                    <li><strong>2020–2023</strong> — Conception et exploitation d'une plateforme e-commerce.</li>
+                </ul>
+                <div class="entry-tags">
+                    <span class="tag">Solidity</span>
+                    <span class="tag">Web3</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Marketing</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-head">
+                    <span class="entry-title">Manager de Cuisine &amp; Cuisinier</span>
+                    <span class="entry-period">2010 — 2020</span>
+                </div>
+                <p class="entry-org">FoodTraboule · Auberge du Château · Auberge de Létraz · Parlement Européen — France</p>
+                <ul class="entry-list">
+                    <li>Encadrement d'une équipe de 2 à 4 personnes, organisation de la mise en place et du service.</li>
+                    <li>Gestion complète des stocks et des approvisionnements selon les besoins de la cuisine.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-head">
+                    <span class="entry-title">Permis Vacances Travail — Montréal</span>
+                    <span class="entry-period">Juin 2023 — Janv. 2024</span>
+                </div>
+                <ul class="entry-list">
+                    <li>Immersion culturelle et professionnelle au Québec, restauration polyvalente en équipe.</li>
+                    <li>Développement d'un site web pour les cours en ligne d'une professeure indépendante.</li>
+                </ul>
+            </div>
+
         </div>
     </section>
 
-    <!-- ═══════════════ ABOUT ═══════════════ -->
-    <section id="about">
-        <p class="section-label">// À propos</p>
-        <h2 class="section-title">Qui suis-je ? 🤔</h2>
-
-        <div class="about-content">
-            <div class="about-text fade-in">
-                <p>
-                    <strong>Dev 42</strong>, j'ai appris à coder en résolvant des problèmes concrets. Pas de cours magistral, pas de diplôme accroché au mur — juste une <strong>curiosité insatiable</strong> et le besoin de comprendre comment les choses fonctionnent.
-                </p>
-                <p>
-                    Mon terrain de jeu : l'<strong>automatisation</strong>, la <strong>souveraineté numérique</strong> et le <strong>self-hosting</strong>. Chaque projet naît d'un problème réel que j'ai voulu résoudre à ma manière.
-                </p>
-                <p>
-                    Actuellement en train d'apprendre <strong>Rust</strong> 🦀 parce que… pourquoi pas faire les choses correctement dès la compilation ?
-                </p>
+    <section id="competences">
+        <p class="section-title">Compétences</p>
+        <div class="skills-grid">
+            <div class="skill-group">
+                <h3>Langages &amp; Frameworks</h3>
+                <div class="skill-tags">
+                    <span class="tag">C</span><span class="tag">C++</span><span class="tag">Python</span>
+                    <span class="tag">Lua</span><span class="tag">TypeScript</span><span class="tag">HTML5</span>
+                    <span class="tag">CSS</span><span class="tag">React</span><span class="tag">Next.js</span>
+                    <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PHP</span>
+                    <span class="tag">MySQL</span><span class="tag">Solidity</span><span class="tag">ethers.js</span>
+                    <span class="tag">RainbowKit</span>
+                </div>
             </div>
-            <div class="stats-grid fade-in">
-                <div class="stat-card">
-                    <div class="stat-number">4+</div>
-                    <div class="stat-label">Projets actifs</div>
+            <div class="skill-group">
+                <h3>DevOps &amp; Outils</h3>
+                <div class="skill-tags">
+                    <span class="tag">Shell</span><span class="tag">Docker</span><span class="tag">Linux</span>
+                    <span class="tag">Windows</span><span class="tag">Tailscale</span><span class="tag">VPN</span>
+                    <span class="tag">GitHub Actions</span><span class="tag">Git</span>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">42</div>
-                    <div class="stat-label">École légendaire</div>
+            </div>
+            <div class="skill-group">
+                <h3>Environnement</h3>
+                <div class="skill-tags">
+                    <span class="tag">Fedora</span><span class="tag">Hyprland</span><span class="tag">VS Code</span>
+                    <span class="tag">Neovim</span><span class="tag">Helix</span><span class="tag">Kitty</span>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Self-hosted</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">Curiosité</div>
-                </div>
+            </div>
+            <div class="skill-group">
+                <h3>Soft skills &amp; langues</h3>
+                <ul style="list-style:none; display:flex; flex-direction:column; gap:4px;">
+                    <li style="font-size:0.9rem; color:var(--text-muted);">Orienté solution · Rigoureux · Bon communicant</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);">Français — langue maternelle</li>
+                    <li style="font-size:0.9rem; color:var(--text-muted);">Anglais — B1</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- ═══════════════ FOOTER ═══════════════ -->
-    <footer>
-        <div class="server-info">
-            <span class="live-dot"></span>
-            Servi par Rust 🦀 · Propulsé par Axum · Hébergé sur mon NAS via Docker
+    <section id="formation">
+        <p class="section-title">Formation</p>
+
+        <div class="formation-item">
+            <div class="formation-top">
+                <span class="formation-degree">Architecte Logiciel</span>
+                <span class="formation-period">2024 — 2026</span>
+            </div>
+            <p class="formation-place">42 Lyon</p>
         </div>
-        <p>© 2026 rev0li-dev · Fait avec du café et de la curiosité</p>
+
+        <div class="formation-item">
+            <div class="formation-top">
+                <span class="formation-degree">Développement Web</span>
+                <span class="formation-period">2023 · 6 mois</span>
+            </div>
+            <p class="formation-place">OpenClassrooms</p>
+        </div>
+
+        <div class="formation-item">
+            <div class="formation-top">
+                <span class="formation-degree">Développeur Blockchain</span>
+                <span class="formation-period">2023 · 3 mois</span>
+            </div>
+            <p class="formation-place">Alyra, Paris</p>
+        </div>
+
+        <div class="formation-item">
+            <div class="formation-top">
+                <span class="formation-degree">BP Cuisine</span>
+                <span class="formation-period">2010 — 2014</span>
+            </div>
+            <p class="formation-place">Dardilly</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p class="section-title">Contact</p>
+        <div class="contact-line">
+            <a href="mailto:chester.snyder143@anonaddy.me">chester.snyder143@anonaddy.me</a>
+            <a href="https://github.com/Rev0li" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <p class="fine-print">Servi en Rust (Axum) · © 2026 Oliver Kientzler</p>
     </footer>
 
 </div>
-
-<script>
-    // ═══════════════ SCROLL ANIMATIONS ═══════════════
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = entry.target.dataset.delay || 0;
-                setTimeout(() => {
-                    entry.target.classList.add('visible');
-                }, delay);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.project-card, .fade-in').forEach(el => observer.observe(el));
-
-    // ═══════════════ EASTER EGG: KONAMI CODE ═══════════════
-    const konami = [38,38,40,40,37,39,37,39,66,65];
-    let konamiIndex = 0;
-    document.addEventListener('keydown', (e) => {
-        if (e.keyCode === konami[konamiIndex]) {
-            konamiIndex++;
-            if (konamiIndex === konami.length) {
-                document.body.classList.toggle('konami-activated');
-                konamiIndex = 0;
-                console.log('🌈 Mode arc-en-ciel activé ! Tu connais les classiques 😎');
-            }
-        } else {
-            konamiIndex = 0;
-        }
-    });
-
-    // ═══════════════ SMOOTH NAV SCROLL ═══════════════
-    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-
-    // Console easter egg
-    console.log('%c🦀 Hey ! Tu fouilles dans la console ? Respect.', 'font-size: 16px; color: #38bdf8;');
-    console.log('%cCe portfolio tourne sur Rust (Axum) dans un container Docker sur mon NAS.', 'font-size: 12px; color: #94a3b8;');
-    console.log('%cKonami code = 🌈', 'font-size: 12px; color: #818cf8;');
-</script>
 
 </body>
 </html>
