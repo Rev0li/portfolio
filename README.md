@@ -34,5 +34,11 @@ Dockerfile      Build multi-stage : compilation puis image runtime minimale
 
 ## Déploiement
 
-Le conteneur écoute en HTTP sur le port 3000 ; le TLS est terminé en amont
-par le reverse proxy du NAS.
+Le conteneur tourne sur le NAS et écoute en HTTP sur le port interne 3000,
+publié sur le port hôte 49154 (`docker-compose.yml`). Le NAS est joignable
+via Tailscale depuis le VPS, qui héberge le reverse proxy public et termine
+le TLS :
+
+```
+reverse_proxy <ip-tailscale-nas>:49154
+```

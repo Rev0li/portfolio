@@ -5,5 +5,5 @@ services:
     container_name: portfolio-rev0li
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "49154:3000"
     read_only: true
