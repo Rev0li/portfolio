@@ -2,34 +2,35 @@
 
 [![CI](https://github.com/Rev0li/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Rev0li/portfolio/actions/workflows/ci.yml)
 
-Portfolio personnel auto-hébergé : une page statique servie par un binaire **Rust / Axum**,
-déployée en conteneur Docker sur un NAS.
+Portfolio personnel auto-hébergé, en **SvelteKit** (Svelte 5, TypeScript, adapter-node),
+déployé en conteneur Docker sur un NAS. Le style vient de [MyCss](https://github.com/Rev0li/MyCss).
 
 ## Stack
 
-- **Serveur** : [Axum](https://github.com/tokio-rs/axum) + [tower-http](https://github.com/tower-rs/tower-http) — fichiers statiques, compression gzip, headers de sécurité
-- **Front** : HTML/CSS vanilla, zéro framework, zéro JavaScript
-- **Infra** : Docker multi-stage (image finale Debian slim, utilisateur non-root), Docker Compose
+- **App** : SvelteKit 2 + Svelte 5 (runes), TypeScript — versions alignées sur rev0auth
+- **Style** : tokens `--rv-*` de MyCss
+- **Infra** : Docker multi-stage (Node 22 Alpine, utilisateur non-root, système de fichiers en lecture seule), Docker Compose
+- **CI** : GitHub Actions — `svelte-check`, vitest, build, image Docker
 
 ## Lancer en local
 
 ```sh
-# Avec Docker
-docker compose up --build
+npm install
+npm run dev        # http://localhost:5173
 
-# Ou avec la toolchain Rust
-cargo run
+npm run check      # types
+npm test           # tests
+docker compose up --build   # image de prod, http://localhost:49154
 ```
-
-Le site est servi sur [http://localhost:3000](http://localhost:3000).
-Le port est configurable via la variable d'environnement `PORT`.
 
 ## Structure
 
 ```
-src/main.rs     Serveur Axum (~40 lignes)
-static/         Contenu du site
-Dockerfile      Build multi-stage : compilation puis image runtime minimale
+src/routes/          Pages (SvelteKit)
+src/lib/             Code partagé ; src/lib/server/ = côté serveur seulement
+src/hooks.server.ts  En-têtes de sécurité sur chaque réponse
+static/              Fichiers servis tels quels
+docs/                Vision, décisions, architecture, roadmap
 ```
 
 ## Déploiement
