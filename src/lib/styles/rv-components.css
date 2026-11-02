@@ -37,6 +37,29 @@ a { color: inherit; }
 	overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
 
+/* ── Sections et titres ── */
+.rv-sec {
+	display: flex; flex-direction: column;
+	padding: var(--rv-section-gap) var(--rv-gutter);
+}
+.rv-sec:has(> .rv-next) { padding-bottom: 64px; }
+.rv-h2 {
+	margin: 0;
+	font-size: var(--rv-text-h2); line-height: .95;
+	letter-spacing: var(--rv-track-h2); font-weight: 800;
+}
+
+/* ── Sticker kawaii (3 max sur le site) : penché, se redresse au survol ── */
+.rv-sticker {
+	display: inline-block; vertical-align: top;
+	width: 84px; height: 84px; margin: -18px 0 0 14px;
+	transform: rotate(var(--r, -8deg));
+	filter: drop-shadow(2px 3px 0 rgba(28, 26, 27, .18));
+	transition: transform var(--rv-dur) var(--rv-ease);
+}
+.rv-sticker:hover { transform: rotate(0deg) scale(1.08); }
+.rv-sticker svg { display: block; width: 100%; height: 100%; }
+
 /* ── Fenêtre rétro ── */
 .rv-win {
 	position: relative;
@@ -113,6 +136,7 @@ a { color: inherit; }
 /* ── Question de bas de section (mène à la suivante) ── */
 .rv-next {
 	align-self: center;
+	margin-top: 24px;
 	display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
 	padding: 12px 24px; border-radius: 16px;
 	text-align: center; text-decoration: none;
