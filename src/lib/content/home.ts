@@ -185,28 +185,14 @@ export const contact = {
 	number: '[ 04 ]',
 	title: 'On en parle ?',
 	links: [
-		{ label: 'GitHub ↗', href: 'https://github.com/Rev0li' },
-		{ label: 'LinkedIn ↗', href: 'https://www.linkedin.com/in/oliver-kientzler-48088020a/' }
+		{ label: 'LinkedIn', icon: '↗', href: 'https://www.linkedin.com/in/oliver-kientzler-48088020a/' },
+		{ label: 'GitHub', icon: '↗', href: 'https://github.com/Rev0li' },
+		{ label: 'Télécharger le CV', icon: '↓', href: '/cv.pdf', cv: true }
 	],
 	email: 'chester.snyder143@anonaddy.me',
-	cv: { label: 'Télécharger le CV ↓', href: '/cv.pdf' },
-	form: {
-		window: 'message.txt',
-		name: '[ nom ]',
-		email: '[ email ]',
-		message: '[ message ]',
-		windowSent: 'message.txt — envoyé',
-		placeholders: { name: 'Camille Martin', email: 'camille@entreprise.fr', message: 'Bonjour Oliver, …' },
-		send: 'Envoyer',
-		retry: 'Réessayer',
-		sending: 'Envoi…',
-		sentTitle: 'Message bien reçu.',
-		sentText: (name: string) => `${name ? `Merci ${name}. ` : 'Merci. '}Je vous réponds sous 48 h, depuis mon adresse anonaddy.`,
-		again: 'Écrire un autre message',
-		tooMany: 'Trop de messages d’un coup. Votre texte est gardé : réessayez dans quelques minutes, ou écrivez-moi à',
-		unavailable: 'Le message n’est pas parti (souci de mon côté). Votre texte est gardé : réessayez, ou écrivez-moi à',
-		honeypot: 'Laissez ce champ vide'
-	},
+	window: 'message.txt',
+	pitch: ['Un mot suffit.', 'Je réponds sous 48 h.'],
+	write: 'M’écrire',
 	footer: { built: '[ construit en SvelteKit, servi depuis mon NAS ]', copyright: '© 2026 Oliver Kientzler' }
 } as const;
 
