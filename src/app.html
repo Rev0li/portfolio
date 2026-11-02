@@ -4,6 +4,15 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
+		<!-- Tokens MyCss (version figée) -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Rev0li/MyCss@v1.1.0/dist/rv-tokens.css" />
+		<!-- Thème choisi par le visiteur, appliqué avant l'affichage (pas de flash) -->
+		<script>
+			try {
+				const t = localStorage.getItem('rv-theme');
+				if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+			} catch {}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
