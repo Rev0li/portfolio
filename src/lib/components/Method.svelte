@@ -23,7 +23,7 @@
 	}
 </script>
 
-<section id="methode" class="rv-sec rv-hair compact" aria-labelledby="h-methode">
+<section id="methode" class="rv-sec rv-hair screen compact" aria-labelledby="h-methode">
 	<div class="head">
 		<span class="rv-label rv-muted">{method.number}</span>
 		<h2 id="h-methode" class="rv-h2">{method.title}</h2>

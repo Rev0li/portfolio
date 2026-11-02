@@ -8,6 +8,9 @@
 
 	const count = stack.reduce((n, [, tools]) => n + tools.length, 0);
 	let open = $state(false);
+	// Une fois dépliée, la stack ne coupe plus ce qui dépasse (fenêtre déplaçable).
+	let settled = $state(false);
+	let heroEl: HTMLElement;
 	let stackEl: HTMLElement;
 
 	const tiles = peek.map(([name, key, tile]) => {
@@ -17,15 +20,31 @@
 	});
 
 	async function toggle() {
-		open = !open;
-		if (!open) return;
+		const willOpen = !open;
+		settled = false;
+		// La page glisse en même temps que la stack se déplie ou se replie, pour que le bas
+		// du premier volet reste calé sur le bas de l'écran. Hauteur finale mesurée d'avance
+		// (état final appliqué sans transition le temps d'une lecture, rien n'est affiché
+		// entre-temps) pour que les deux mouvements partent ensemble.
+		stackEl.style.transition = 'none';
+		stackEl.classList.toggle('open', willOpen);
+		const heroBottom = heroEl.getBoundingClientRect().bottom + scrollY;
+		stackEl.classList.toggle('open', !willOpen);
+		void stackEl.offsetHeight; // réapplique l'état de départ avant de relancer la transition
+		stackEl.style.transition = '';
+
+		open = willOpen;
 		await tick();
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-		stackEl.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+		if (willOpen && reduce) settled = true; // pas de transition, donc pas de fin de transition
+		const target = Math.max(0, heroBottom - innerHeight);
+		// à l'ouverture on ne fait que descendre, à la fermeture que remonter
+		const top = willOpen ? Math.max(scrollY, target) : Math.min(scrollY, target);
+		if (top !== scrollY) scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
 	}
 </script>
 
-<section class="rv-sec hero" aria-labelledby="h-hero">
+<section class="rv-sec hero" aria-labelledby="h-hero" bind:this={heroEl}>
 	<div class="top">
 		<p class="rv-px tagline">{hero.tagline}</p>
 		<span class="rv-label status"><span class="rv-dot" aria-hidden="true"></span>{hero.status}</span>
@@ -61,8 +80,17 @@
 		</div>
 	</div>
 
-	<div id="stack-win" class="stack" class:open bind:this={stackEl} inert={!open}>
-		<div class="stack-in"><StackApp {count} /></div>
+	<div
+		id="stack-win"
+		bind:this={stackEl}
+		class="stack"
+		class:open
+		inert={!open}
+		ontransitionend={(e) => {
+			if (open && e.target === e.currentTarget && e.propertyName === 'grid-template-rows') settled = true;
+		}}
+	>
+		<div class="stack-in" class:settled><StackApp {count} /></div>
 	</div>
 
 	<a class="discover" href="#histoire">{hero.discover} <span class="rv-bob" aria-hidden="true">↓</span></a>
@@ -71,7 +99,7 @@
 <style>
 	.hero {
 		justify-content: space-between; gap: 40px; box-sizing: border-box;
-		min-height: calc(100svh - 56px); padding-top: 48px; padding-bottom: 28px;
+		min-height: calc(100svh - var(--rv-top)); padding-top: clamp(24px, 4.5vh, 48px); padding-bottom: clamp(16px, 2.5vh, 28px);
 		background-image: radial-gradient(var(--rv-dots) 1px, transparent 1.4px);
 		background-size: 18px 18px;
 	}
@@ -114,6 +142,7 @@
 		transition: grid-template-rows .42s cubic-bezier(.2, .7, .2, 1), margin-top .42s cubic-bezier(.2, .7, .2, 1), opacity .3s ease .08s, visibility 0s;
 	}
 	.stack-in { min-height: 0; overflow: hidden; padding: 0 6px 6px 0; }
+	.stack-in.settled { overflow: visible; }
 	.discover {
 		align-self: center; display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
 		min-height: var(--rv-control-h); padding: 8px 18px; border-radius: 999px;

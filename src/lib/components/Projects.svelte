@@ -49,7 +49,7 @@
 	onDestroy(() => clearTimeout(timer));
 </script>
 
-<section id="projets" class="rv-sec rv-hair compact" aria-labelledby="h-projets">
+<section id="projets" class="rv-sec rv-hair screen compact" aria-labelledby="h-projets">
 	<div class="head">
 		<div class="title">
 			<span class="rv-label rv-muted">{projects.number}</span>
@@ -112,14 +112,14 @@
 	.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-bottom: var(--rv-line-w) solid var(--rv-line); }
 	.row {
 		width: 100%; display: grid; grid-template-columns: 52px minmax(0, 1fr) 28px; gap: 16px; align-items: center;
-		padding: 22px 16px; border: 0; border-top: var(--rv-line-w) solid var(--rv-line);
+		padding: clamp(10px, 1.6vh, 22px) 16px; border: 0; border-top: var(--rv-line-w) solid var(--rv-line);
 		background: transparent; color: var(--rv-ink); font: inherit; text-align: left; cursor: pointer;
 		transition: background-color var(--rv-dur) var(--rv-ease), color var(--rv-dur) var(--rv-ease);
 	}
 	.n { font-size: 20px; color: var(--rv-turq-ink); }
 	.txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-	.name { font-size: 30px; font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
-	.lead .name { font-size: 42px; }
+	.name { font-size: clamp(24px, 3.2vh, 30px); font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
+	.lead .name { font-size: clamp(30px, 4.2vh, 42px); }
 	.line { font-size: 15px; line-height: 1.4; color: var(--rv-muted); }
 	.arrow { font-size: 22px; opacity: 0; transform: translateX(-6px); transition: opacity var(--rv-dur) var(--rv-ease), transform var(--rv-dur) var(--rv-ease); }
 	.row:hover { background: color-mix(in oklab, var(--rv-turq) 14%, transparent); }
@@ -127,7 +127,7 @@
 	.row.on .n, .row.on .line { color: inherit; }
 	.row.on .arrow { opacity: 1; transform: none; }
 	.demo-col { position: sticky; top: 120px; }
-	.foot { display: flex; flex-direction: column; gap: 20px; padding: 22px 24px 24px; }
+	.foot { display: flex; flex-direction: column; gap: clamp(12px, 2vh, 20px); padding: clamp(14px, 2.2vh, 22px) 24px clamp(16px, 2.4vh, 24px); }
 	.who { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 	.demo-name { font-size: 32px; font-weight: 800; letter-spacing: -.03em; }
 	.pitch { font-size: 16px; line-height: 1.45; }
