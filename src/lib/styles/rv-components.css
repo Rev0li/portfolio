@@ -9,6 +9,7 @@
 /* Hauteur de ce qui est collé en haut (barre de 56 px ; + bandeau live plus tard).
    Une ancre arrive juste sous la barre, sans laisser voir la section précédente. */
 :root { --rv-top: 56px; }
+:root:has(.rv-ticker) { --rv-top: 88px; } /* + bandeau live de 32 px */
 html { scroll-padding-top: var(--rv-top); scroll-behavior: smooth; }
 body {
 	margin: 0;

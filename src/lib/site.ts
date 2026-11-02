@@ -2,7 +2,8 @@
 export const site = {
 	name: 'Olivier Kientzler',
 	title: 'Portfolio — rev0li',
-	github: 'https://github.com/Rev0li'
+	github: 'https://github.com/Rev0li',
+	githubUser: 'Rev0li'
 } as const;
 
 /** Titre d'onglet : « Page · Portfolio — rev0li », ou le titre seul. */

@@ -57,6 +57,9 @@ Visiteur ──HTTPS──▶ VPS (reverse proxy, TLS)
 - Prod derrière le Caddy du VPS : `ORIGIN` (contrôle CSRF) et
   `ADDRESS_HEADER=X-Forwarded-For` + `XFF_DEPTH=1` (vraie IP pour la limite
   d'envois), posés dans `docker-compose.yml`.
+- Bandeau live (PF-11) : services sondés listés dans `LIVE_SERVICES` (`.env`, nom=url https) ;
+  en ligne = réponse < 500 en moins de 4 s ; mesures en cache 1 min, commits publics GitHub
+  (API de recherche, sans jeton) en cache 1 h ; « dernier déploiement » = date du build.
 - `/api/live` ne renvoie que des booléens / dates agrégées : **aucune IP, aucun
   nom d'hôte interne, aucun port**.
 

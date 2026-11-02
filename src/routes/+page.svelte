@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Contact from '$lib/components/Contact.svelte';
+	import LiveTicker from '$lib/components/LiveTicker.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import History from '$lib/components/History.svelte';
 	import Method from '$lib/components/Method.svelte';
@@ -14,6 +15,7 @@
 </svelte:head>
 
 <SiteHeader />
+<LiveTicker />
 <main id="top">
 	<Hero />
 	<History />

@@ -3,6 +3,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	define: {
+		__BUILD_TIME__: JSON.stringify(new Date().toISOString())
+	},
 	build: {
 		// Navigateurs qui gèrent light-dark(), color-mix() et :has() nativement.
 		// Sans ça, le minifieur réécrit light-dark() avec des variables que nos

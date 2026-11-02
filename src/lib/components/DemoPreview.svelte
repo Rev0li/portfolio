@@ -49,7 +49,7 @@
 
 <style>
 	.prev {
-		position: relative; height: clamp(140px, 24vh, 300px); display: grid; place-items: center; overflow: hidden;
+		position: relative; height: clamp(140px, 23vh, 300px); display: grid; place-items: center; overflow: hidden;
 		border-bottom: var(--rv-line-w) solid var(--rv-line);
 		background: color-mix(in oklab, var(--rv-turq) 7%, var(--rv-surface));
 	}

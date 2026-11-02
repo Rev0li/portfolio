@@ -204,3 +204,16 @@ export const contact = {
 	},
 	footer: { built: '[ construit en SvelteKit, servi depuis mon NAS ]', copyright: '© 2026 Oliver Kientzler' }
 } as const;
+
+export const live = {
+	label: 'live',
+	region: 'Statut de mon infra en direct',
+	pause: 'Mettre le défilement en pause',
+	play: 'Relancer le défilement',
+	self: 'portfolio en ligne',
+	up: (name: string) => `${name} en ligne`,
+	down: (name: string) => `${name} hors ligne`,
+	latency: 'temps de réponse',
+	deployed: 'dernier déploiement',
+	commits: 'commits publics cette semaine'
+} as const;
