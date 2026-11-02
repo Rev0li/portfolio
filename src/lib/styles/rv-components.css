@@ -43,6 +43,10 @@ a { color: inherit; }
 	padding: var(--rv-section-gap) var(--rv-gutter);
 }
 .rv-sec:has(> .rv-next) { padding-bottom: 64px; }
+.rv-sec.compact { gap: 44px; padding-top: 56px; padding-bottom: 28px; }
+.rv-sec.compact .rv-h2 { font-size: 72px; }
+.rv-sec.compact > .rv-next { margin-top: 0; padding-top: 4px; }
+.rv-sec.compact .rv-next-q { font-size: 24px; }
 .rv-h2 {
 	margin: 0;
 	font-size: var(--rv-text-h2); line-height: .95;
