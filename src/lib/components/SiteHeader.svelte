@@ -14,7 +14,7 @@
 	<span class="rv-label rv-muted center">[ Lyon, <LyonClock /> ]</span>
 	<ThemeToggle />
 	<a class="rv-nav-link" href="#contact">Contact</a>
-	<a class="rv-nav-cta" href="#cv">CV <span aria-hidden="true">↓</span></a>
+	<a class="rv-nav-cta" href="/cv.pdf">CV <span aria-hidden="true">↓</span></a>
 </header>
 
 <style>

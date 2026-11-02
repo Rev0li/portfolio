@@ -7,3 +7,11 @@ services:
     ports:
       - "49154:3000"
     read_only: true
+    # Secrets du formulaire de contact (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) : voir .env.example
+    env_file: .env
+    environment:
+      # Derrière le Caddy du VPS : vraie origine (contrôle CSRF des formulaires)
+      # et vraie adresse du visiteur (limite d'envois par IP)
+      ORIGIN: https://portfolio.rev0li.duckdns.org
+      ADDRESS_HEADER: X-Forwarded-For
+      XFF_DEPTH: "1"

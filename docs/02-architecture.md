@@ -14,7 +14,7 @@ Visiteur ──HTTPS──▶ VPS (reverse proxy, TLS)
                         │
                         ├─▶ pages pré-rendues FR / EN (contenu statique)
                         ├─▶ /api/live     ──▶ sondes de statut des services (cache court)
-                        └─▶ /api/contact  ──▶ envoi du message vers l'alias anonaddy
+                        └─▶ action ?/contact ──▶ message envoyé sur mon Telegram (Bot API)
 ```
 
 ## Composants
@@ -44,14 +44,19 @@ Visiteur ──HTTPS──▶ VPS (reverse proxy, TLS)
 1. **Première visite** : requête → page pré-rendue dans la langue du navigateur
    (FR par défaut) → le bandeau live se remplit côté client via `/api/live` ;
    si l'API échoue, il affiche un état neutre, jamais d'erreur.
-2. **Contact** : formulaire → `/api/contact` → honeypot + rate-limit + validation
-   → envoi vers l'alias anonaddy → message de confirmation dans la langue du visiteur.
+2. **Contact** : formulaire (action SvelteKit `?/contact`, marche aussi sans
+   JavaScript) → champ piège + 3 envois / 10 min par IP (30 / h au total) +
+   validation + contrôle d'origine → message texte brut vers mon Telegram →
+   confirmation. Si l'envoi échoue : invitation à écrire par e-mail.
 3. **Changement de langue / thème** : depuis la barre de menu, mémorisé dans le navigateur.
 
 ## Données & secrets
 - Aucune base de données en v1.
-- Secrets (fichier `.env`, jamais commité) : identifiants d'envoi du mail de
-  contact ; éventuelles cibles des sondes live.
+- Secrets (fichier `.env`, jamais commité, modèle dans `.env.example`) :
+  `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` ; éventuelles cibles des sondes live.
+- Prod derrière le Caddy du VPS : `ORIGIN` (contrôle CSRF) et
+  `ADDRESS_HEADER=X-Forwarded-For` + `XFF_DEPTH=1` (vraie IP pour la limite
+  d'envois), posés dans `docker-compose.yml`.
 - `/api/live` ne renvoie que des booléens / dates agrégées : **aucune IP, aucun
   nom d'hôte interne, aucun port**.
 

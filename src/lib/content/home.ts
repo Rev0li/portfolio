@@ -180,3 +180,27 @@ export const method = {
 	},
 	next: { question: 'Un projet en tête ?', label: '[ 04 ] Contact' }
 } as const;
+
+export const contact = {
+	number: '[ 04 ]',
+	title: 'On en parle ?',
+	links: [
+		{ label: 'GitHub ↗', href: 'https://github.com/Rev0li' },
+		{ label: 'LinkedIn ↗', href: 'https://www.linkedin.com/in/oliver-kientzler-48088020a/' }
+	],
+	email: 'chester.snyder143@anonaddy.me',
+	cv: { label: 'Télécharger le CV ↓', href: '/cv.pdf' },
+	form: {
+		window: 'message.txt',
+		name: '[ nom ]',
+		email: '[ email ]',
+		message: '[ message ]',
+		send: 'Envoyer',
+		sending: 'Envoi…',
+		sent: 'Message reçu, merci ! Je vous réponds vite.',
+		tooMany: 'Trop de messages d’un coup : réessayez dans quelques minutes, ou écrivez-moi par e-mail.',
+		unavailable: 'L’envoi ne passe pas pour le moment : écrivez-moi directement par e-mail.',
+		honeypot: 'Laissez ce champ vide'
+	},
+	footer: { built: '[ construit en SvelteKit, servi depuis mon NAS ]', copyright: '© 2026 Oliver Kientzler' }
+} as const;

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Contact from '$lib/components/Contact.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import History from '$lib/components/History.svelte';
 	import Method from '$lib/components/Method.svelte';
@@ -18,4 +19,5 @@
 	<History />
 	<Projects />
 	<Method />
+	<Contact />
 </main>

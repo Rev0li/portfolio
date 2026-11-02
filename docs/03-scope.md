@@ -36,7 +36,7 @@ Le rempart anti scope-creep. Si une demande tombe dans les non-goals, on dit non
 | Coquilles dans les textes (FR et EN) | Moyen | Moyenne | Relecture dédiée dans PF-01 et PF-06 |
 
 ## Questions ouvertes
-- [ ] **Envoi du formulaire de contact** — contrainte : gratuit, le plus simple possible, self-host si possible.
+- [x] **Envoi du formulaire de contact** — ✅ tranché le 2026-11-02 : **bot Telegram** (PF-12). Contrainte d'origine : gratuit, le plus simple possible, self-host si possible.
   Recommandation : **bot Telegram appelé directement par `/api/contact`** (un `fetch` vers la Bot API, zéro service en plus, notification instantanée sur le téléphone).
   Alternative self-host : **ntfy** dans un conteneur sur le NAS. n8n écarté : un service entier pour un seul appel HTTP.
 - [ ] **Source du bandeau live** — piste « logs agrégés » écartée en v1 (lourd, risque de fuite).
