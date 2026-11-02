@@ -112,7 +112,7 @@
 	.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-bottom: var(--rv-line-w) solid var(--rv-line); }
 	.row {
 		width: 100%; display: grid; grid-template-columns: 52px minmax(0, 1fr) 28px; gap: 16px; align-items: center;
-		padding: clamp(10px, 1.6vh, 22px) 16px; border: 0; border-top: var(--rv-line-w) solid var(--rv-line);
+		padding: clamp(10px, 1.4vh, 22px) 16px; border: 0; border-top: var(--rv-line-w) solid var(--rv-line);
 		background: transparent; color: var(--rv-ink); font: inherit; text-align: left; cursor: pointer;
 		transition: background-color var(--rv-dur) var(--rv-ease), color var(--rv-dur) var(--rv-ease);
 	}
