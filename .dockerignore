@@ -1,9 +1,11 @@
-target/
+node_modules/
+.svelte-kit/
+build/
 .git/
 .github/
-.gitignore
 .claude/
 *.md
+.gitignore
 .dockerignore
 docker-compose.yml
 Dockerfile

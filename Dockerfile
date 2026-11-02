@@ -1,29 +1,25 @@
-# ── Build : compile le binaire Rust ─────────────────────────
-FROM rust:1.85-slim AS builder
+# ── Build : installe les dépendances et compile SvelteKit ────
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Couche de cache : compile les dépendances seules d'abord,
-# pour ne pas tout rebuilder à chaque changement de src/
-COPY Cargo.toml Cargo.lock ./
-RUN mkdir src \
-    && echo "fn main() {}" > src/main.rs \
-    && cargo build --release --locked \
-    && rm -rf src
+COPY package.json package-lock.json ./
+RUN npm ci
 
-COPY src ./src
-RUN touch src/main.rs && cargo build --release --locked
+COPY . .
+RUN npm run build
 
-# ── Runtime : image minimale, utilisateur non-root ───────────
-FROM debian:bookworm-slim
+# ── Runtime : Node seul, utilisateur non-root ────────────────
+FROM node:22-alpine
 
 WORKDIR /app
+ENV NODE_ENV=production PORT=3000
 
-COPY --from=builder /app/target/release/portfolio ./portfolio
-COPY static ./static
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/package.json ./
 
-USER 65534:65534
+USER node
 
 EXPOSE 3000
 
-CMD ["./portfolio"]
+CMD ["node", "build"]
