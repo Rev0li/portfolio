@@ -54,9 +54,7 @@
 	.levels { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; align-items: start; }
 	.lv { display: flex; flex-direction: column; gap: 14px; padding-top: 14px; }
 	.lv-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-	.tag { font-size: 18px; color: color-mix(in oklab, var(--c) 42%, var(--rv-ink)); }
-	:global([data-theme='dark']) .tag { color: color-mix(in oklab, var(--c) 55%, var(--rv-ink)); }
-	@media (prefers-color-scheme: dark) { :global(:root:not([data-theme='light'])) .tag { color: color-mix(in oklab, var(--c) 55%, var(--rv-ink)); } }
+	.tag { font-size: 18px; color: light-dark(color-mix(in oklab, var(--c) 42%, var(--rv-ink)), color-mix(in oklab, var(--c) 55%, var(--rv-ink))); }
 	.txt { margin: 0; font-size: 16px; line-height: 1.55; text-wrap: pretty; }
 	.txt b { font-weight: 700; }
 	.lv.max {

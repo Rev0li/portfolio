@@ -105,10 +105,6 @@
 </section>
 
 <style>
-	.compact { gap: 44px; padding-top: 56px; padding-bottom: 28px; }
-	.compact :global(.rv-h2) { font-size: 72px; }
-	.compact :global(.rv-next) { margin-top: 0; padding-top: 4px; }
-	.compact :global(.rv-next-q) { font-size: 24px; }
 	.head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; }
 	.title { display: flex; flex-direction: column; gap: 12px; }
 	.sub { margin: 0; max-width: 24em; font-size: 19px; letter-spacing: -.01em; }

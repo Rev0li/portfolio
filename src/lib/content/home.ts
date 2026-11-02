@@ -148,3 +148,35 @@ export const projects = {
 	},
 	next: { question: 'Et derrière, quelle méthode ?', label: '[ 03 ] Comment je travaille' }
 } as const;
+
+export type Lane = { text: string; chips?: readonly string[] };
+
+export const method = {
+	number: '[ 03 ]',
+	title: 'Comment je travaille',
+	sub: 'Je conçois, je pilote, je décide.',
+	subAi: 'L’IA avance en parallèle, jamais à ma place.',
+	tableLabel: 'Ce que je fais et ce que fait l’IA, de l’idée à la prod',
+	phases: ['Idée', 'Conception', 'Réalisation', 'Vérification', 'Prod'],
+	me: {
+		label: 'moi',
+		cells: [
+			{ text: 'Je pars d’un besoin réel et je le formule.' },
+			{ text: 'Je me documente, je conçois l’architecture et je découpe en tickets.', chips: ['doc officielle', 'Jira · GitHub Issues'] },
+			{ text: 'Je cadre chaque ticket et je relis chaque diff.' },
+			{ text: 'Je tranche : merge, ou retour en arrière.' },
+			{ text: 'Je valide la mise en prod et je surveille.' }
+		] satisfies Lane[]
+	},
+	ai: {
+		label: 'IA',
+		cells: [
+			{ text: 'Je dicte, elle reformule et pose les questions qui fâchent.', chips: ['Whisper local'] },
+			{ text: 'Elle cherche et compare les sources, puis challenge le plan.', chips: ['Perplexity', 'Claude Code'] },
+			{ text: 'Code, tests, docs : elle exécute ce qui se répète.', chips: ['Claude Code', 'Copilot', 'skills maison'] },
+			{ text: 'Audit, revue et tests en continu.', chips: ['agents d’audit', 'CI'] },
+			{ text: 'Le pipeline enchaîne build, tests et déploiement, sans geste manuel.', chips: ['pipeline CI/CD complet'] }
+		] satisfies Lane[]
+	},
+	next: { question: 'Un projet en tête ?', label: '[ 04 ] Contact' }
+} as const;
