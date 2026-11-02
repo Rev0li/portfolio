@@ -12,7 +12,7 @@ Le rempart anti scope-creep. Si une demande tombe dans les non-goals, on dit non
 - Fiches projets ; SongSurf présenté par une **vidéo teaser** (tunnel tuto :
   téléchargement d'un titre libre de droits, fonctionnalités principales).
 - Bandeau live (statut des services, dernier déploiement).
-- Contact : GitHub, LinkedIn, alias anonaddy, formulaire texte.
+- Contact : bouton « M'écrire » (alias anonaddy), GitHub, LinkedIn, CV (formulaire retiré, ADR-009).
 - CI GitHub Actions + déploiement Docker sur le NAS.
 
 ## Non-goals (hors scope, assumé)
@@ -30,13 +30,13 @@ Le rempart anti scope-creep. Si une demande tombe dans les non-goals, on dit non
 | Recoupement d'indices (secteur, maison mère, localisation, projets) qui identifie l'entreprise | Élevé | Moyenne | Projets internes décrits de façon générique ; faire relire les textes « stage » par le tuteur |
 | Chiffres IA perçus comme gonflés | Élevé | Moyenne | Chiffres tirés des repos (vérifiables) ou minimisés ; une phrase de méthode à côté |
 | Fuite d'infos infra via le bandeau live | Élevé | Faible | `/api/live` agrégé, revue sécurité dans le ticket |
-| Spam via le formulaire | Moyen | Élevée | Honeypot + rate-limit + taille max |
+| Spam via le formulaire | — | — | Sans objet depuis ADR-009 (plus de formulaire) |
 | Le style rétro fait « gadget » | Moyen | Moyenne | Maquette validée avant le code (PF-03) ; règles MyCss : 2 couleurs fortes max, animations courtes |
 | MyCss v1 en retard | Moyen | Moyenne | Thème du portfolio sur variables CSS locales, rebranchées sur MyCss dès la v1 |
 | Coquilles dans les textes (FR et EN) | Moyen | Moyenne | Relecture dédiée dans PF-01 et PF-06 |
 
 ## Questions ouvertes
-- [x] **Envoi du formulaire de contact** — ✅ tranché le 2026-11-02 : **bot Telegram** (PF-12). Contrainte d'origine : gratuit, le plus simple possible, self-host si possible.
+- [x] **Envoi du formulaire de contact** — tranché le 2026-11-02 : bot Telegram (PF-12), puis **formulaire retiré** le même jour (PF-23) : bouton « M'écrire » (mailto) + liens, plus simple et sans service à maintenir. Contrainte d'origine : gratuit, le plus simple possible, self-host si possible.
   Recommandation : **bot Telegram appelé directement par `/api/contact`** (un `fetch` vers la Bot API, zéro service en plus, notification instantanée sur le téléphone).
   Alternative self-host : **ntfy** dans un conteneur sur le NAS. n8n écarté : un service entier pour un seul appel HTTP.
 - [ ] **Source du bandeau live** — piste « logs agrégés » écartée en v1 (lourd, risque de fuite).

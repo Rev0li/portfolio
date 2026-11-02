@@ -23,10 +23,8 @@ npm test           # tests
 docker compose up --build   # image de prod, http://localhost:49154
 ```
 
-Le formulaire de contact envoie les messages sur Telegram : copier `.env.example`
-en `.env` et remplir `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID`. En local avec
-`node build`, poser aussi `ORIGIN=http://localhost:3000` (sinon SvelteKit refuse
-l'envoi du formulaire, protection CSRF).
+Réglages du serveur : copier `.env.example` en `.env` (services sondés par le
+bandeau live).
 
 ## Structure
 

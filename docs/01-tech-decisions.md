@@ -118,3 +118,14 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
   (`localStorage`) et appliqué avant l'affichage (pas de flash).
 - **Conséquences :** une page `/styleguide` (non indexée) montre tous les
   composants, en clair et en sombre.
+
+## ADR-009 — Contact sans formulaire (remplace en partie ADR-007)
+- **Contexte :** le formulaire (PF-12, envoi par bot Telegram) demandait un bot,
+  des secrets, un anti-spam et une limite d'envois, pour un usage rare.
+- **Décision (2026-11-02) :** plus de formulaire. Le volet Contact propose un
+  bouton « M'écrire » (lien mail vers l'alias anonaddy) et LinkedIn, GitHub, CV
+  en lignes larges. Même chose sur mobile.
+- **Pourquoi :** plus de problèmes que d'avantages ; un recruteur a déjà son
+  outil de mail ; aucun service ni secret à maintenir.
+- **Conséquences :** code serveur du contact retiré ; plus de `TELEGRAM_*` dans
+  `.env` ; l'alias anonaddy reste la seule adresse publique.
