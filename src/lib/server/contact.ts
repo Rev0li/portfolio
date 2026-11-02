@@ -14,8 +14,10 @@ export function validateContact(raw: Record<string, unknown>): { data: ContactIn
 	const errors: ContactErrors = {};
 	if (!data.name) errors.name = 'Indiquez votre nom.';
 	else if (data.name.length > LIMITS.name) errors.name = `${LIMITS.name} caractères maximum.`;
-	if (!EMAIL.test(data.email) || data.email.length > LIMITS.email) errors.email = 'Adresse e-mail invalide.';
-	if (data.message.length < LIMITS.messageMin) errors.message = `Au moins ${LIMITS.messageMin} caractères.`;
+	if (!data.email) errors.email = 'Indiquez votre adresse e-mail.';
+	else if (!EMAIL.test(data.email) || data.email.length > LIMITS.email) errors.email = 'Adresse incomplète (ex. nom@entreprise.fr).';
+	if (!data.message) errors.message = 'Un petit mot avant d’envoyer ?';
+	else if (data.message.length < LIMITS.messageMin) errors.message = `Au moins ${LIMITS.messageMin} caractères.`;
 	else if (data.message.length > LIMITS.messageMax) errors.message = `${LIMITS.messageMax} caractères maximum.`;
 	return { data, errors };
 }

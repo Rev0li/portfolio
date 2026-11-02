@@ -10,7 +10,7 @@ export const actions: Actions = {
 	contact: async ({ request, getClientAddress }) => {
 		const raw = Object.fromEntries(await request.formData());
 		// Robot : on fait comme si tout allait bien, sans rien envoyer.
-		if (isBot(raw)) return { sent: true };
+		if (isBot(raw)) return { sent: true, name: '' };
 
 		const { data, errors } = validateContact(raw);
 		if (Object.keys(errors).length) return fail(400, { values: data, errors });
@@ -19,6 +19,6 @@ export const actions: Actions = {
 
 		const sent = await sendTelegram({ token: env.TELEGRAM_BOT_TOKEN, chatId: env.TELEGRAM_CHAT_ID }, data);
 		if (!sent) return fail(503, { values: data, error: contact.form.unavailable });
-		return { sent: true };
+		return { sent: true, name: data.name };
 	}
 };
