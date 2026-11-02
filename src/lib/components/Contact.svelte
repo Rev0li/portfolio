@@ -18,7 +18,7 @@
 </script>
 
 <!-- Toujours en thème sombre, quelle que soit la page : fond photo voilé -->
-<section id="contact" class="rv-sec contact" data-theme="dark" aria-labelledby="h-contact">
+<section id="contact" class="rv-sec screen contact" data-theme="dark" aria-labelledby="h-contact">
 	<div class="head">
 		<span class="rv-label dim">{contact.number}</span>
 		<h2 id="h-contact" class="title">{contact.title}<StickerEnvelope /></h2>
@@ -79,7 +79,7 @@
 
 <style>
 	.contact {
-		gap: 48px; padding-top: 96px; padding-bottom: 32px; color: var(--rv-band-ink);
+		gap: clamp(28px, 4vh, 48px); padding-top: clamp(40px, 8vh, 96px); color: var(--rv-band-ink);
 		background:
 			linear-gradient(100deg, color-mix(in oklab, var(--rv-band) 90%, transparent) 0%, color-mix(in oklab, var(--rv-band) 74%, transparent) 45%, color-mix(in oklab, var(--rv-band) 55%, transparent) 100%),
 			linear-gradient(to bottom, transparent 60%, color-mix(in oklab, var(--rv-band) 85%, transparent) 100%),
@@ -88,13 +88,13 @@
 	}
 	.dim { opacity: .7; }
 	.head { display: flex; flex-direction: column; gap: 14px; }
-	.title { margin: 0; font-size: clamp(48px, 7.6vw, 110px); line-height: .88; letter-spacing: var(--rv-track-hero); font-weight: 900; }
+	.title { margin: 0; font-size: clamp(48px, min(7.6vw, 12vh), 110px); line-height: .88; letter-spacing: var(--rv-track-hero); font-weight: 900; }
 	.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 48px; align-items: start; }
 	.links { display: flex; flex-direction: column; gap: 14px; font-size: 22px; font-weight: 600; }
 	.links .small { font-size: 17px; font-weight: 500; overflow-wrap: anywhere; }
 	.links .cv { color: var(--rv-turq-ink); }
 	.links a:hover { color: var(--rv-turq-ink); }
-	form { display: flex; flex-direction: column; gap: 22px; padding: 26px; }
+	form { display: flex; flex-direction: column; gap: clamp(12px, 2.2vh, 22px); padding: clamp(18px, 2.6vh, 26px) 26px; }
 	.field { display: flex; flex-direction: column; gap: 8px; }
 	.field input, .field textarea {
 		padding: 10px 0; border: 0; border-bottom: var(--rv-line-w) solid var(--rv-ink);

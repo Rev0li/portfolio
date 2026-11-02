@@ -71,7 +71,7 @@
 <style>
 	.hero {
 		justify-content: space-between; gap: 40px; box-sizing: border-box;
-		min-height: calc(100svh - 56px); padding-top: 48px; padding-bottom: 28px;
+		min-height: calc(100svh - var(--rv-top)); padding-top: clamp(24px, 4.5vh, 48px); padding-bottom: clamp(16px, 2.5vh, 28px);
 		background-image: radial-gradient(var(--rv-dots) 1px, transparent 1.4px);
 		background-size: 18px 18px;
 	}

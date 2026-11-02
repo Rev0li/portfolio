@@ -6,7 +6,10 @@
  */
 
 /* ── Base ── */
-html { scroll-padding-top: 88px; }
+/* Hauteur de ce qui est collé en haut (barre de 56 px ; + bandeau live plus tard).
+   Une ancre arrive juste sous la barre, sans laisser voir la section précédente. */
+:root { --rv-top: 56px; }
+html { scroll-padding-top: var(--rv-top); }
 body {
 	margin: 0;
 	background: var(--rv-bg);
@@ -43,8 +46,19 @@ a { color: inherit; }
 	padding: var(--rv-section-gap) var(--rv-gutter);
 }
 .rv-sec:has(> .rv-next) { padding-bottom: 64px; }
-.rv-sec.compact { gap: 44px; padding-top: 56px; padding-bottom: 28px; }
-.rv-sec.compact .rv-h2 { font-size: 72px; }
+/* Section « un écran » : remplit exactement la fenêtre sous la barre du haut ;
+   titre en haut, question vers la suite en bas. Plus haute si le contenu l'exige. */
+.rv-sec.screen {
+	box-sizing: border-box;
+	min-height: calc(100svh - var(--rv-top));
+	justify-content: space-between;
+	padding-top: clamp(32px, 6vh, 72px);
+	padding-bottom: clamp(16px, 2.5vh, 28px);
+}
+.rv-sec.screen > .rv-next { margin-top: 0; }
+.rv-sec.compact { gap: clamp(20px, 3.5vh, 44px); }
+.rv-sec.compact:not(.screen) { padding-top: 56px; padding-bottom: 28px; }
+.rv-sec.compact .rv-h2 { font-size: clamp(52px, 7vh, 72px); }
 .rv-sec.compact > .rv-next { margin-top: 0; padding-top: 4px; }
 .rv-sec.compact .rv-next-q { font-size: 24px; }
 .rv-h2 {

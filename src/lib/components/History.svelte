@@ -4,7 +4,7 @@
 	import StickerOnigiri from './StickerOnigiri.svelte';
 </script>
 
-<section id="histoire" class="rv-sec rv-hair history" aria-labelledby="h-histoire">
+<section id="histoire" class="rv-sec rv-hair screen history" aria-labelledby="h-histoire">
 	<div class="head">
 		<span class="rv-label rv-muted">{history.number}</span>
 		<h2 id="h-histoire" class="rv-h2">{history.title[0]}<br />{history.title[1]}<StickerOnigiri /></h2>
@@ -39,7 +39,7 @@
 </section>
 
 <style>
-	.history { gap: 72px; }
+	.history { gap: clamp(28px, 5vh, 72px); }
 	.head { display: flex; flex-direction: column; gap: 18px; }
 	.xp { display: flex; flex-direction: column; gap: 22px; }
 	.bar { position: relative; height: 10px; }
