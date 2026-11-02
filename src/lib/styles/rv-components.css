@@ -9,9 +9,10 @@
 /* Hauteur de ce qui est collé en haut (barre de 56 px ; + bandeau live plus tard).
    Une ancre arrive juste sous la barre, sans laisser voir la section précédente. */
 :root { --rv-top: 56px; }
-html { scroll-padding-top: var(--rv-top); }
+html { scroll-padding-top: var(--rv-top); scroll-behavior: smooth; }
 body {
 	margin: 0;
+	overflow-x: clip; /* une fenêtre poussée hors de l'écran ne crée pas de défilement horizontal */
 	background: var(--rv-bg);
 	color: var(--rv-ink);
 	font-family: var(--rv-font-sans);
@@ -86,6 +87,16 @@ a { color: inherit; }
 	border-radius: var(--rv-radius-window);
 	box-shadow: var(--rv-shadow-hard);
 	overflow: hidden;
+}
+.rv-win {
+	translate: var(--x, 0) var(--y, 0);
+	transition: translate var(--rv-dur-slow) cubic-bezier(.2, .7, .2, 1), box-shadow var(--rv-dur) var(--rv-ease), scale var(--rv-dur) var(--rv-ease);
+}
+/* Saisie : la fenêtre se soulève (ombre plus longue, très léger zoom) et suit la souris sans retard */
+.rv-win-lifted {
+	transition: box-shadow var(--rv-dur) var(--rv-ease), scale var(--rv-dur) var(--rv-ease);
+	box-shadow: 10px 10px 0 var(--rv-hard);
+	scale: 1.015;
 }
 .rv-win-bar {
 	display: flex; align-items: center; gap: 10px;
@@ -211,6 +222,8 @@ a { color: inherit; }
 .rv-nav-cta:hover { background: var(--rv-turq); color: var(--rv-on-accent); }
 
 @media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	.rv-win, .rv-win-lifted { transition: none; scale: none; }
 	.rv-dot, .rv-bob { animation: none; }
 	.rv-pill:hover { transform: none; }
 }

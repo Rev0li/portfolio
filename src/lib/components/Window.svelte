@@ -1,10 +1,6 @@
-<script lang="ts" module>
-	// Pile partagée : la dernière fenêtre déplacée passe au premier plan.
-	let top = 1;
-</script>
-
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { windowStack } from '$lib/windows.svelte';
 
 	let {
 		title,
@@ -13,16 +9,24 @@
 		children
 	}: { title: string; draggable?: boolean; class?: string; children: Snippet } = $props();
 
+	const id = windowStack.next++;
 	let x = $state(0);
 	let y = $state(0);
-	let z = $state(0);
+	let moved = $state(false);
+	let dragging = $state(false);
 	let start: { px: number; py: number; x: number; y: number } | null = null;
+
+	// Fenêtre déplacée : au-dessus du reste de la page ; la dernière saisie au-dessus des autres.
+	// Toujours sous la barre du haut (z-index 5).
+	const z = $derived(moved ? (windowStack.top === id ? 4 : 3) : undefined);
 
 	function down(e: PointerEvent) {
 		if (!draggable || e.button !== 0) return;
 		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 		start = { px: e.clientX, py: e.clientY, x, y };
-		z = ++top;
+		windowStack.top = id;
+		moved = true;
+		dragging = true;
 	}
 	function move(e: PointerEvent) {
 		if (!start) return;
@@ -31,6 +35,7 @@
 	}
 	function up() {
 		start = null;
+		dragging = false;
 	}
 	function reset() {
 		x = 0;
@@ -40,8 +45,15 @@
 
 <div
 	class="rv-win {extra}"
-	style:transform={x || y ? `translate(${x}px, ${y}px)` : undefined}
-	style:z-index={z || undefined}
+	class:rv-win-lifted={dragging}
+	class:rv-win-moved={moved}
+	style:--x="{x}px"
+	style:--y="{y}px"
+	style:z-index={z}
+	ontransitionend={(e) => {
+		// revenue à sa place : elle rejoint le flux normal de la page
+		if (e.propertyName === 'translate' && !x && !y && !dragging) moved = false;
+	}}
 >
 	<!-- Easter egg : la barre se déplace à la souris, double-clic pour replacer -->
 	<div
