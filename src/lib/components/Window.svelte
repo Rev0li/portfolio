@@ -9,6 +9,7 @@
 		children
 	}: { title: string; draggable?: boolean; class?: string; children: Snippet } = $props();
 
+	const TIP = 'Glisser pour déplacer · double-clic pour replacer';
 	const id = windowStack.next++;
 	let x = $state(0);
 	let y = $state(0);
@@ -43,34 +44,33 @@
 	}
 </script>
 
-<div
-	class="rv-win {extra}"
-	class:rv-win-lifted={dragging}
-	class:rv-win-moved={moved}
-	style:--x="{x}px"
-	style:--y="{y}px"
-	style:z-index={z}
-	ontransitionend={(e) => {
-		// revenue à sa place : elle rejoint le flux normal de la page
-		if (e.propertyName === 'translate' && !x && !y && !dragging) moved = false;
-	}}
->
-	<!-- Easter egg : la barre se déplace à la souris, double-clic pour replacer -->
+<div class="rv-win-wrap {extra}" style:--x="{x}px" style:--y="{y}px" style:z-index={z}>
+	{#if dragging}<span class="rv-win-ghost" aria-hidden="true"></span>{/if}
+	{#if draggable}<span class="rv-win-tip" aria-hidden="true">{TIP}</span>{/if}
 	<div
-		class="rv-win-bar"
-		data-drag={draggable ? '' : undefined}
-		title={draggable ? 'Glisser pour déplacer · double-clic pour replacer' : undefined}
-		role="presentation"
-		onpointerdown={down}
-		onpointermove={move}
-		onpointerup={up}
-		onpointercancel={up}
-		ondblclick={reset}
+		class="rv-win"
+		class:rv-win-lifted={dragging}
+		ontransitionend={(e) => {
+			// revenue à sa place : elle rejoint le flux normal de la page
+			if (e.target === e.currentTarget && e.propertyName === 'translate' && !x && !y && !dragging) moved = false;
+		}}
 	>
-		<span class="rv-gels" aria-hidden="true">
-			<span class="rv-gel rose"></span><span class="rv-gel ocre"></span><span class="rv-gel"></span>
-		</span>
-		<div class="rv-win-title"><span>{title}</span></div>
+		<!-- Easter egg : la barre se déplace à la souris, double-clic pour replacer -->
+		<div
+			class="rv-win-bar"
+			data-drag={draggable ? '' : undefined}
+			role="presentation"
+			onpointerdown={down}
+			onpointermove={move}
+			onpointerup={up}
+			onpointercancel={up}
+			ondblclick={reset}
+		>
+			<span class="rv-gels" aria-hidden="true">
+				<span class="rv-gel rose"></span><span class="rv-gel ocre"></span><span class="rv-gel"></span>
+			</span>
+			<div class="rv-win-title"><span>{title}</span></div>
+		</div>
+		{@render children()}
 	</div>
-	{@render children()}
 </div>

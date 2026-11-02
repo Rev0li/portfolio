@@ -51,7 +51,7 @@
 		<button class="pause" type="button" onclick={() => (paused = !paused)} aria-pressed={paused} aria-label={paused ? live.play : live.pause}>
 			{paused ? '▶' : '❚❚'}
 		</button>
-		<span class="rv-label lbl"><span class="rv-dot" aria-hidden="true"></span>{live.label}</span>
+		<span class="rv-label lbl"><span class="rv-dot" aria-hidden="true"></span>[ {live.label} ]</span>
 	</div>
 	<div class="marquee rv-mono">
 		<!-- Une copie lisible, les suivantes décoratives pour que la boucle ne laisse pas de trou -->
@@ -87,7 +87,8 @@
 	.group { display: inline-flex; align-items: center; gap: 40px; padding-right: 40px; }
 	.rv-ticker:hover .track, .paused .track { animation-play-state: paused; }
 	@keyframes slide { to { transform: translateX(-50%); } }
-	.ti { display: inline-flex; align-items: center; gap: 8px; }
+	.ti { display: inline-flex; align-items: center; gap: 8px; text-underline-offset: 5px; }
+	.ti:hover { text-decoration: underline; }
 	.ti b { font-weight: 500; color: var(--rv-turq-ink); }
 	.sep { color: var(--rv-turq-ink); }
 	.rv-dot.down { background: var(--rv-danger); box-shadow: 0 0 0 3px color-mix(in oklab, var(--rv-danger) 30%, transparent); animation: none; }
