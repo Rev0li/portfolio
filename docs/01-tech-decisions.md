@@ -9,7 +9,7 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 | Langage(s) | TypeScript | 6.x (aligné rev0auth) |
 | Framework(s) | SvelteKit + Svelte 5, adapter-node | Kit 2.57+, Svelte 5.55+ (aligné rev0auth) |
 | i18n | Paraglide JS (inlang), FR + EN | dernière stable au moment de PF-06 |
-| Style | MyCss v1 (`tokens.css`) + CSS du thème « System 7 / Aqua » | MyCss v1 (phase 2) |
+| Style | Tokens MyCss (`rv-tokens.css`, CDN) + composants Rev0 (`src/lib/styles/rv-components.css`, futur MyCss v1.2) ; polices auto-hébergées (Fontsource) | MyCss v1.1.0 |
 | Base de données | Aucune en v1 | — |
 | Infra / déploiement | Docker multi-stage (non-root, `read_only`) sur le NAS, port hôte 49154, reverse proxy + TLS sur le VPS via Tailscale | Node 22 |
 | CI / tests | GitHub Actions : `svelte-check` + vitest + build image | — |
@@ -44,7 +44,7 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 - **Alternatives écartées :** acheter un domaine pro tout de suite (reporté).
 - **Conséquences :** le passage à un domaine pro se fera au moment de la fusion.
 
-## ADR-003 — Une page qui défile, habillée en fenêtres rétro
+## ADR-003 — Une page qui défile, habillée en fenêtres rétro *(remplacé en partie par ADR-008)*
 - **Contexte :** identité voulue : vieux PC (System 7) + touche Apple (Aqua),
   pastel, très pro. Cible prioritaire : recruteur non-tech.
 - **Décision :** barre de menu fixe en haut (nom, langue, thème, horloge,
@@ -98,3 +98,23 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
   page : GitHub, LinkedIn, mail (alias anonaddy), formulaire texte.
 - **Conséquences :** le formulaire doit être fiable et anti-spam (honeypot +
   rate-limit, même approche que rev0auth).
+
+## ADR-008 — DA « Mélange » v1 et composants Rev0 (remplace en partie ADR-003)
+- **Contexte :** la planche UX/UI v1 (validée en octobre-novembre 2026) a fait
+  évoluer ADR-003 : base éditoriale (grands titres, labels mono, filets),
+  header minimal au lieu d'une barre de menu System 7, fenêtres rétro réservées
+  à quelques objets (avatar, stack, pipeline, message), pages projet en mode sobre.
+- **Décision :** fenêtres rétro seulement pour ces objets ; elles sont
+  déplaçables par la barre et se replacent au double-clic (**easter egg**, jamais
+  nécessaire pour lire la page). Tous les styles passent par les tokens `--rv-*`
+  de MyCss. Les composants sont d'abord écrits dans le portfolio
+  (`rv-components.css`, classes `rv-*`), puis déplacés dans MyCss v1.2 une fois
+  validés sur les vraies pages.
+- **Pourquoi :** les composants se règlent plus vite sur les pages réelles ;
+  MyCss ne reçoit que du validé, réutilisable par rev0auth et SongSurf.
+- **Polices :** auto-hébergées (Fontsource), aucune requête vers Google
+  (vie privée des visiteurs, pas de dépendance à un tiers).
+- **Thème :** suit le système, le choix du visiteur est gardé en local
+  (`localStorage`) et appliqué avant l'affichage (pas de flash).
+- **Conséquences :** une page `/styleguide` (non indexée) montre tous les
+  composants, en clair et en sombre.

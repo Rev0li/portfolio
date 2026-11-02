@@ -1,0 +1,174 @@
+/**
+ * Composants Rev0 — brouillon de MyCss v1.2.
+ * Écrits ici sur les vraies pages du portfolio ; une fois validés, ils partent
+ * dans MyCss (dist/rv-components.css) et ce fichier est remplacé par le CDN.
+ * Uniquement des tokens --rv-* (MyCss v1.1) ; préfixe de classe : rv-.
+ */
+
+/* ── Base ── */
+html { scroll-padding-top: 88px; }
+body {
+	margin: 0;
+	background: var(--rv-bg);
+	color: var(--rv-ink);
+	font-family: var(--rv-font-sans);
+	font-size: var(--rv-text-body);
+	transition: background-color var(--rv-dur) var(--rv-ease), color var(--rv-dur) var(--rv-ease);
+}
+a { color: inherit; }
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+	outline: var(--rv-focus-ring);
+	outline-offset: var(--rv-focus-offset);
+}
+
+/* ── Typo utilitaire ── */
+.rv-mono { font-family: var(--rv-font-mono); }
+.rv-px { font-family: var(--rv-font-pixel); }
+.rv-label {
+	font-family: var(--rv-font-mono);
+	font-size: var(--rv-text-label);
+	letter-spacing: var(--rv-track-label);
+	text-transform: uppercase;
+}
+.rv-muted { color: var(--rv-muted); }
+.rv-hair { border-top: var(--rv-line-w) solid var(--rv-line); }
+.rv-sr {
+	position: absolute; width: 1px; height: 1px;
+	overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ── Fenêtre rétro ── */
+.rv-win {
+	position: relative;
+	background: var(--rv-surface);
+	border: var(--rv-line-w) solid var(--rv-ink);
+	border-radius: var(--rv-radius-window);
+	box-shadow: var(--rv-shadow-hard);
+	overflow: hidden;
+}
+.rv-win-bar {
+	display: flex; align-items: center; gap: 10px;
+	height: 28px; padding: 0 10px;
+	border-bottom: var(--rv-line-w) solid var(--rv-ink);
+	background: repeating-linear-gradient(to bottom, transparent 0 3px, color-mix(in oklab, var(--rv-ink) 20%, transparent) 3px 4px);
+	user-select: none;
+}
+.rv-win-bar[data-drag] { cursor: grab; touch-action: none; }
+.rv-win-bar[data-drag]:active { cursor: grabbing; }
+.rv-gels { display: flex; gap: 6px; padding: 0 6px; background: var(--rv-surface); }
+.rv-gel {
+	width: 11px; height: 11px; border-radius: 50%;
+	border: var(--rv-line-w) solid var(--rv-ink);
+	background: radial-gradient(circle at 35% 30%, #fff 0 14%, var(--c, var(--rv-turq)) 60%);
+}
+.rv-gel.rose { --c: var(--rv-rose); }
+.rv-gel.ocre { --c: var(--rv-ocre); }
+.rv-win-title { flex: 1; display: flex; justify-content: center; }
+.rv-win-title span {
+	padding: 0 10px;
+	background: var(--rv-surface);
+	font-family: var(--rv-font-pixel);
+	font-size: 13px;
+}
+
+/* ── Pilules (boutons et liens-boutons) ── */
+.rv-pill {
+	display: inline-flex; align-items: center; gap: 10px;
+	min-height: var(--rv-control-h); padding: 0 22px;
+	border: var(--rv-line-w) solid var(--rv-ink);
+	border-radius: var(--rv-radius-control);
+	background: transparent; color: var(--rv-ink);
+	font: inherit; font-size: 15px; font-weight: 600;
+	text-decoration: none; cursor: pointer;
+	transition: transform var(--rv-dur) var(--rv-ease), background-color var(--rv-dur) var(--rv-ease), color var(--rv-dur) var(--rv-ease), border-color var(--rv-dur) var(--rv-ease);
+}
+.rv-pill:hover { transform: translateY(-1px); }
+.rv-pill.big { min-height: 56px; padding: 0 26px; font-size: 16px; }
+.rv-pill.solid { background: var(--rv-ink); color: var(--rv-bg); }
+.rv-pill.solid:hover { background: var(--rv-turq); border-color: var(--rv-turq); color: var(--rv-on-accent); }
+/* Bouton gel : un seul par écran, l'action principale */
+.rv-pill.gel {
+	--gel-top: #9FF3EC;
+	color: var(--rv-on-accent);
+	background: linear-gradient(to bottom, var(--gel-top), var(--rv-turq));
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), var(--rv-shadow-gel);
+}
+
+/* ── Liens ── */
+.rv-ulink {
+	font-weight: 600;
+	text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px;
+}
+.rv-ulink:hover { color: var(--rv-turq-ink); }
+
+/* ── Pastille « en ligne » ── */
+.rv-dot {
+	display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+	background: var(--rv-turq);
+	box-shadow: 0 0 0 3px color-mix(in oklab, var(--rv-turq) 30%, transparent);
+	animation: rv-pulse 2.4s ease-in-out infinite;
+}
+@keyframes rv-pulse { 50% { box-shadow: 0 0 0 6px transparent; } }
+
+/* ── Question de bas de section (mène à la suivante) ── */
+.rv-next {
+	align-self: center;
+	display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
+	padding: 12px 24px; border-radius: 16px;
+	text-align: center; text-decoration: none;
+}
+.rv-next-q {
+	padding-bottom: 4px;
+	font-size: 28px; font-weight: 700; letter-spacing: -.025em;
+	background: linear-gradient(currentColor, currentColor) 50% 100% / 0 2px no-repeat;
+	transition: background-size var(--rv-dur-slow) var(--rv-ease);
+}
+.rv-next:hover { color: var(--rv-turq-ink); }
+.rv-next:hover .rv-next-q { background-size: 100% 2px; }
+.rv-next:hover .rv-bob { animation-duration: .9s; }
+.rv-bob { display: inline-block; font-size: 22px; animation: rv-bob 1.8s ease-in-out infinite; }
+@keyframes rv-bob { 50% { transform: translateY(6px); } }
+
+/* ── Barre du haut ── */
+.rv-nav {
+	position: sticky; top: 0; z-index: 5;
+	display: flex; align-items: center; gap: 16px;
+	height: 56px; padding: 0 32px;
+	background: color-mix(in oklab, var(--rv-bg) 88%, transparent);
+	backdrop-filter: blur(8px);
+	border-bottom: var(--rv-line-w) solid var(--rv-line);
+}
+.rv-icon-btn {
+	width: var(--rv-control-h); height: var(--rv-control-h);
+	display: inline-flex; align-items: center; justify-content: center;
+	border: var(--rv-line-w) solid transparent; border-radius: 999px;
+	background: transparent; color: var(--rv-ink); cursor: pointer;
+}
+.rv-icon-btn:hover { border-color: var(--rv-line); }
+.rv-avatar {
+	position: relative; flex: none; display: block;
+	width: 34px; height: 34px; border-radius: 50%; overflow: hidden;
+	border: var(--rv-line-w) solid var(--rv-ink);
+	background: color-mix(in oklab, var(--rv-turq) 22%, var(--rv-bg));
+}
+.rv-avatar img { position: absolute; left: -19px; top: -12px; width: 74px; height: 74px; }
+.rv-avatar:hover { box-shadow: 0 0 0 3px color-mix(in oklab, var(--rv-turq) 40%, transparent); }
+.rv-nav-link {
+	display: inline-flex; align-items: center;
+	min-height: 36px; padding: 0 6px;
+	border-bottom: var(--rv-line-w) solid transparent;
+	font-size: 14px; font-weight: 600; text-decoration: none;
+}
+.rv-nav-link:hover { border-bottom-color: currentColor; color: var(--rv-turq-ink); }
+.rv-nav-cta {
+	display: inline-flex; align-items: center; gap: 6px;
+	min-height: 36px; padding: 0 16px; border-radius: 999px;
+	background: var(--rv-ink); color: var(--rv-bg);
+	font-size: 14px; font-weight: 600; text-decoration: none;
+}
+.rv-nav-cta:hover { background: var(--rv-turq); color: var(--rv-on-accent); }
+
+@media (prefers-reduced-motion: reduce) {
+	.rv-dot, .rv-bob { animation: none; }
+	.rv-pill:hover { transform: none; }
+}
