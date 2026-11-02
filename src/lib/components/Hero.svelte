@@ -20,23 +20,27 @@
 	});
 
 	async function toggle() {
+		const willOpen = !open;
 		settled = false;
-		open = !open;
-		if (!open) return;
-		// Pendant que la stack se déplie, la page glisse jusqu'au bas du premier volet.
-		// Hauteur finale mesurée d'avance (dépliée sans transition, le temps d'une lecture,
-		// rien n'est affiché entre-temps) pour que les deux mouvements partent ensemble.
+		// La page glisse en même temps que la stack se déplie ou se replie, pour que le bas
+		// du premier volet reste calé sur le bas de l'écran. Hauteur finale mesurée d'avance
+		// (état final appliqué sans transition le temps d'une lecture, rien n'est affiché
+		// entre-temps) pour que les deux mouvements partent ensemble.
 		stackEl.style.transition = 'none';
-		stackEl.classList.add('open');
+		stackEl.classList.toggle('open', willOpen);
 		const heroBottom = heroEl.getBoundingClientRect().bottom + scrollY;
-		stackEl.classList.remove('open');
-		void stackEl.offsetHeight; // applique l'état replié avant de relancer la transition
+		stackEl.classList.toggle('open', !willOpen);
+		void stackEl.offsetHeight; // réapplique l'état de départ avant de relancer la transition
 		stackEl.style.transition = '';
+
+		open = willOpen;
 		await tick();
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (reduce) settled = true; // pas de transition, donc pas de fin de transition
-		const top = Math.max(scrollY, heroBottom - innerHeight);
-		scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+		if (willOpen && reduce) settled = true; // pas de transition, donc pas de fin de transition
+		const target = Math.max(0, heroBottom - innerHeight);
+		// à l'ouverture on ne fait que descendre, à la fermeture que remonter
+		const top = willOpen ? Math.max(scrollY, target) : Math.min(scrollY, target);
+		if (top !== scrollY) scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
 	}
 </script>
 
