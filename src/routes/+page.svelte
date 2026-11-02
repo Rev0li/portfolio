@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Hero from '$lib/components/Hero.svelte';
 	import History from '$lib/components/History.svelte';
+	import Projects from '$lib/components/Projects.svelte';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import { pageTitle } from '$lib/site';
 </script>
@@ -14,4 +15,5 @@
 <main id="top">
 	<Hero />
 	<History />
+	<Projects />
 </main>

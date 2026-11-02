@@ -108,3 +108,43 @@ export const history = {
 	] satisfies Level[],
 	next: { question: 'Et concrètement, ça donne quoi ?', label: '[ 02 ] Projets' }
 } as const;
+
+export type ProjectPreview = 'cicd' | 'infra' | 'auth' | 'song' | 'pong';
+export type Project = {
+	n: string;
+	preview: ProjectPreview;
+	name: string;
+	line: string;
+	app: string;
+	kind: string;
+	pitch: string;
+	href: string;
+	cta: string;
+	soon?: string;
+};
+
+export const projects = {
+	number: '[ 02 ]',
+	title: 'Projets',
+	sub: 'Pas de captures d’écran : survolez un projet, il se lance en version démo.',
+	listLabel: 'Projets, par ordre d’importance',
+	items: [
+		{ n: '01', preview: 'cicd', name: 'DevOps — Pipeline CI/CD', line: 'Une appli métier critique, de Git à Kubernetes.', app: 'pipeline.app', kind: 'Projet pro · en entreprise', pitch: 'Suivez un merge jusqu’en production : build, registre d’images, GitOps, Kubernetes, secrets Vault et supervision.', href: '/projets/cicd', cta: 'Voir le cas d’étude' },
+		{ n: '02', preview: 'infra', name: 'Infra self-host', line: 'NAS + VPS : le serveur qui fait tourner ce site.', app: 'infra.app', kind: 'Projet perso', pitch: 'Suivez une requête à travers le pare-feu, le reverse proxy, l’auth et le tunnel, jusqu’à la maison.', href: '/projets/infra', cta: 'Lancer la démo' },
+		{ n: '03', preview: 'auth', name: 'rev0auth', line: 'La porte d’entrée de tous mes services.', app: 'rev0auth.app', kind: 'Projet perso', pitch: 'Connectez-vous avec un compte démo : une page vous est refusée, puis ouverte avec le bon rôle.', href: '/projets/rev0auth', cta: 'Lancer la démo' },
+		{ n: '04', preview: 'song', name: 'SongSurf', line: 'Trouver, ranger, écouter sa musique.', app: 'songsurf.app', kind: 'Projet perso', pitch: 'Une démo guidée avec un titre libre de droits. Envie d’accéder à la vraie version ? Écrivez-moi.', href: '/projets/songsurf', cta: 'Lancer la démo' },
+		{ n: '05', preview: 'pong', name: 'Transcendence', line: 'Projet 42 : jeu temps réel, lead d’une équipe de 5.', app: 'pong.app', kind: 'Projet d’école · 42', pitch: 'Une partie contre un bot, sans compte. La version complète, en ligne, est jouable avec un compte.', href: '/projets/transcendence', cta: 'Voir le projet', soon: 'démo en préparation · version en ligne avec compte' }
+	] satisfies Project[],
+	previews: {
+		cicdTop: 'git push · commit a3f9c1',
+		cicdSteps: ['Code', 'Revue', 'Build & tests', 'Image', 'GitOps', 'dev · IAT · UAT', 'prod'],
+		cicdBottom: '7 étapes · 0 mise en prod à la main',
+		infraZones: ['[ internet ]', '[ vps · public ]', '[ tunnel ]', '[ maison ]'],
+		infraNodes: ['Visiteur', 'Pare-feu', 'Caddy', 'rev0auth', 'Tailscale', 'NAS'],
+		infraServices: ['SongSurf', 'Seafile', 'Jellyfin', 'CouchDB', 'portfolio'],
+		authOk: 'rôle : démo ✓',
+		song: '♪ titre libre de droits',
+		pong: 'VOUS 2 · 3 BOT'
+	},
+	next: { question: 'Et derrière, quelle méthode ?', label: '[ 03 ] Comment je travaille' }
+} as const;
