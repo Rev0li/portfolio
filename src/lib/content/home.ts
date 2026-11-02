@@ -1,0 +1,110 @@
+/**
+ * Textes de la page d'accueil (FR). Aucun texte en dur dans les composants :
+ * ce fichier passera dans les messages Paraglide avec PF-06.
+ */
+
+export const hero = {
+	tagline: 'Samouraï des fourneaux, devenu sensei de la prod.',
+	status: '[ Disponible — CDI · mars 2027 ]',
+	name: 'Ingénieur\nDevOps & IA',
+	nameLabel: 'Ingénieur DevOps et IA',
+	definition: { word: 'ingénieur', rest: ', n. : celui qui conçoit, de l’idée à la mise en production.' },
+	avatarAlt: 'Oliver en version chibi, lunettes rondes et chignon, devant son ordinateur',
+	statement: ['Un site qui marche le jour J, c’est facile.', 'Qu’il marche encore dans un an, c’est mon métier.'],
+	discover: 'Me découvrir'
+} as const;
+
+/** [nom affiché, clé d'icône, fond de tuile forcé (sinon teinte de la marque)] */
+export const peek: readonly (readonly [string, string, string?])[] = [
+	['Kubernetes', 'kubernetes'],
+	['Docker', 'docker'],
+	['Jenkins', 'jenkins'],
+	['HashiCorp Vault', 'vault', '#000000'],
+	['Grafana', 'grafana'],
+	['Linux · Fedora', 'fedora'],
+	['Java 25', 'java'],
+	['Angular', 'angular']
+];
+
+export type Tool = readonly [name: string, where: string, icon: string];
+export type StackDomain = readonly [domain: string, tools: readonly Tool[]];
+
+export const stack: readonly StackDomain[] = [
+	['DevOps & CI/CD', [
+		['Kubernetes', 'Stage — déploiement d’une appli métier sur dev, IAT, UAT et prod.', 'kubernetes'],
+		['Helm', 'Stage — charts de déploiement par environnement.', 'helm'],
+		['GitOps', 'Stage — l’état voulu de chaque environnement est décrit dans Git.', 'git'],
+		['Jenkins', 'Stage — pipelines de build et de tests.', 'jenkins'],
+		['Bitbucket', 'Stage — dépôts, pull requests et revues de code.', 'bitbucket'],
+		['Docker', 'Partout — stage, mes services perso, projets 42.', 'docker'],
+		['GitHub Actions', 'Perso — CI de ce portfolio.', 'githubactions']
+	]],
+	['Sécurité & observabilité', [
+		['HashiCorp Vault', 'Stage — secrets injectés, jamais dans le code.', 'vault'],
+		['Prometheus', 'Stage — métriques des services.', 'prometheus'],
+		['Grafana', 'Stage — tableaux de bord.', 'grafana'],
+		['Tempo', 'Stage — traces des requêtes.', 'grafana'],
+		['2FA · Argon2', 'Perso et 42 — rev0auth, Transcendence.', 'key']
+	]],
+	['Systèmes & réseau', [
+		['Linux · Fedora', 'Perso — mon poste, installé et configuré par script.', 'fedora'],
+		['SUSE SLES 15', 'Stage — serveurs de l’entreprise.', 'suse'],
+		['Windows', 'Stage et perso — postes de travail.', 'windows'],
+		['Tailscale', 'Perso — réseau privé entre mon NAS et mon VPS.', 'tailscale'],
+		['Caddy · Nginx', 'Perso et 42 — reverse proxy et TLS.', 'caddy'],
+		['NAS + VPS', 'Perso — mon infra self-host.', 'synology']
+	]],
+	['Backend & données', [
+		['Java 25', 'Stage — refactorisation d’une appli métier.', 'java'],
+		['Node.js', '42 et perso.', 'nodedotjs'],
+		['Python', 'Perso — SongSurf.', 'python'],
+		['PostgreSQL', 'Perso — rev0auth.', 'postgresql'],
+		['SQLite · Prisma', '42 — Transcendence.', 'prisma'],
+		['PHP · MySQL', 'Formation.', 'php']
+	]],
+	['Frontend', [
+		['TypeScript', 'Partout — stage, perso, 42.', 'typescript'],
+		['Angular 22', 'Stage — refactorisation et i18n.', 'angular'],
+		['SvelteKit · Svelte 5', 'Perso et 42 — rev0auth, ce portfolio, Transcendence.', 'svelte'],
+		['React · Next.js', 'Formation et entrepreneuriat.', 'react'],
+		['HTML · CSS', 'Partout.', 'html5']
+	]],
+	['IA & automatisation', [
+		['Claude Code', 'Au quotidien, piloté par tickets et revues.', 'claude'],
+		['GitHub Copilot', 'Assistant de code dans l’éditeur.', 'githubcopilot'],
+		['Agents & skills maison', 'Perso — audit, passage de main, docs, sessions.', 'spark'],
+		['n8n', 'Perso — automatisation de workflows.', 'n8n'],
+		['i18n automatisée', 'Stage — extraction des textes en dur d’une appli Java/Angular.', 'globe'],
+		['Whisper local', 'Perso — dictée vocale 100 % locale (whisper-type).', 'openai']
+	]],
+	['Bas niveau & Web3', [
+		['Scripts shell', 'Perso — sauvegardes, installation, fin des commandes répétitives.', 'gnubash'],
+		['Dotfiles', 'Perso — mon environnement versionné et réinstallable.', 'term'],
+		['C · C++', '42 — shell, tri, librairie standard, raytracer.', 'cplusplus'],
+		['Lua', 'Perso.', 'lua'],
+		['Solidity · ethers.js', 'Formation blockchain.', 'solidity']
+	]]
+];
+
+export const stackLabels = {
+	open: (more: number) => `+ ${more} · toute ma stack`,
+	close: 'Fermer ma stack',
+	title: (count: number) => `stack.app — ${count} outils`,
+	domains: '[ domaine ]',
+	tools: '[ outils · où je les utilise ]',
+	peek: 'Outils principaux'
+} as const;
+
+export type Level = { tag: string; years: string; title: string; text: string; color: string; current?: boolean };
+
+export const history = {
+	number: '[ 01 ]',
+	title: ['Du coup de feu', 'au déploiement'],
+	levels: [
+		{ tag: 'LV.1', years: '2010 — 2020', title: 'Cuisinier', text: ' pendant dix ans, j’ai appris en plein coup de feu : la mise en place fait tout, un plat raté ne sort pas.', color: 'var(--rv-ocre)' },
+		{ tag: 'LV.2', years: '2020 — 2024', title: 'Entrepreneur', text: ', j’ai lancé seul vidéo, e-commerce et sites web. Lancer, c’est facile. Faire tenir, beaucoup moins.', color: 'var(--rv-rose)' },
+		{ tag: 'LV.3', years: '2024 — 2026', title: '42 Lyon', text: ', sans profs : apprendre des autres, se gérer seul, et relire le code d’un pair avec un œil critique mais constructif.', color: 'var(--rv-violet)' },
+		{ tag: 'LV.MAX', years: '2026 — maintenant', title: 'Aujourd’hui', text: ', les commandes sont devenues des déploiements, la mise en place un pipeline, et le plat une idée servie en production, sécurisée.', color: 'var(--rv-turq)', current: true }
+	] satisfies Level[],
+	next: { question: 'Et concrètement, ça donne quoi ?', label: '[ 02 ] Projets' }
+} as const;
