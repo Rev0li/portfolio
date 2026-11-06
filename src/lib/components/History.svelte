@@ -64,5 +64,25 @@
 	}
 	.lv.max .tag { color: var(--rv-turq-ink); text-shadow: 0 0 12px color-mix(in oklab, var(--rv-turq) 60%, transparent); }
 	.years-now { display: inline-flex; align-items: center; gap: 8px; }
+	/* Mobile : frise XP verticale à gauche, un niveau sous l'autre */
+	@media (max-width: 760px) {
+		.history { gap: 36px; }
+		.head { gap: 12px; }
+		.bar { display: none; }
+		.levels { position: relative; grid-template-columns: minmax(0, 1fr); gap: 22px; padding-left: 28px; }
+		.levels::before {
+			content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px; width: 6px; border-radius: 999px;
+			background: linear-gradient(to bottom, var(--rv-ocre), var(--rv-rose) 37%, var(--rv-violet) 63%, var(--rv-turq) 88%);
+		}
+		.lv { position: relative; gap: 8px; padding-top: 0; }
+		.lv::before {
+			content: ''; position: absolute; left: -28px; top: 4px; width: 18px; height: 18px; box-sizing: border-box;
+			border-radius: 50%; border: 3px solid var(--c); background: var(--rv-bg);
+		}
+		.lv.max { margin: 0; padding: 14px 16px 16px; }
+		.lv.max::before { top: 18px; }
+		.tag { font-size: 17px; }
+		.txt { line-height: 1.5; }
+	}
 	@media (prefers-reduced-motion: reduce) { .blur { animation: none; } }
 </style>

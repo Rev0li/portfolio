@@ -12,6 +12,12 @@
 		<h2 id="h-contact" class="title">{contact.title}<StickerEnvelope /></h2>
 	</div>
 
+	<!-- Mobile : un gros bouton mail en premier, puis les liens -->
+	<div class="reach">
+		<a class="rv-pill gel big" href="mailto:{contact.email}">{contact.write} <span aria-hidden="true">↗</span></a>
+		<span class="rv-mono mail dim">{contact.email}</span>
+	</div>
+
 	<div class="grid">
 		<ul class="links">
 			{#each contact.links as l (l.href)}
@@ -63,5 +69,18 @@
 	.pitch { margin: 0; font-size: 26px; line-height: 1.25; letter-spacing: -.02em; font-weight: 600; }
 	.mail { font-size: 13px; overflow-wrap: anywhere; }
 	.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; border-top: var(--rv-line-w) solid var(--rv-band-line); }
+	.reach { display: none; }
+	@media (max-width: 760px) {
+		.contact { gap: 32px; padding-top: 48px; padding-bottom: 24px; background-position: 30% center; }
+		.head { gap: 12px; }
+		.title { font-size: clamp(40px, 14vw, 52px); line-height: .9; }
+		.reach { display: flex; flex-direction: column; gap: 10px; }
+		.reach .rv-pill { width: 100%; box-sizing: border-box; justify-content: center; min-height: 58px; font-size: 18px; border-color: var(--rv-band-ink); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 3px 3px 0 rgba(0, 0, 0, .6); }
+		.reach .mail { align-self: center; font-size: 12px; }
+		.grid { gap: 0; margin-top: -22px; }
+		.grid :global(.rv-win-wrap) { display: none; }
+		.links a { min-height: 56px; font-size: 20px; }
+		.foot { flex-direction: column; gap: 6px; padding-top: 18px; }
+	}
 	@media (prefers-reduced-motion: reduce) { .links a { transition: none; } }
 </style>

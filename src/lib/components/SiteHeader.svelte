@@ -19,11 +19,16 @@
 
 <style>
 	.left { display: flex; align-items: center; gap: 12px; }
-	.center { flex: 1; text-align: center; }
+	.center { flex: 1; text-align: center; white-space: nowrap; }
 	.gh {
 		padding: 6px 0;
 		border-bottom: var(--rv-line-w) solid transparent;
 		font-size: 13px; text-decoration: none;
 	}
 	.gh:hover { border-bottom-color: currentColor; color: var(--rv-turq-ink); }
+	@media (max-width: 760px) {
+		/* Mobile : barre réduite à l'heure, au thème, à Contact et au CV */
+		.left { display: none; }
+		.center { text-align: left; }
+	}
 </style>

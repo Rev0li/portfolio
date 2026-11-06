@@ -37,6 +37,8 @@
 		await tick();
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		if (willOpen && reduce) settled = true; // pas de transition, donc pas de fin de transition
+		// Filet si la fin de transition n'arrive jamais (constaté sur iPhone)
+		if (willOpen) setTimeout(() => open && (settled = true), 600);
 		const target = Math.max(0, heroBottom - innerHeight);
 		// à l'ouverture on ne fait que descendre, à la fermeture que remonter
 		const top = willOpen ? Math.max(scrollY, target) : Math.min(scrollY, target);
@@ -85,6 +87,7 @@
 		bind:this={stackEl}
 		class="stack"
 		class:open
+		class:settled
 		inert={!open}
 		ontransitionend={(e) => {
 			if (open && e.target === e.currentTarget && e.propertyName === 'grid-template-rows') settled = true;
@@ -143,12 +146,38 @@
 	}
 	.stack-in { min-height: 0; overflow: hidden; padding: 0 6px 6px 0; }
 	.stack-in.settled { overflow: visible; }
+	/* Une fois ouverte, la hauteur suit le contenu sans animation : changer de domaine
+	   (liste plus longue ou plus courte) ne doit pas rejouer le dépliage en coupant le bas */
+	.stack.open.settled { transition: none; }
 	.discover {
 		align-self: center; display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
 		min-height: var(--rv-control-h); padding: 8px 18px; border-radius: 999px;
 		font-size: 17px; font-weight: 700; text-decoration: none;
 	}
 	.discover:hover { color: var(--rv-turq-ink); }
+	/* Mobile : tout en colonne, moi.png à droite sous le nom, 8 logos sur une ligne, stack pleine largeur */
+	@media (max-width: 760px) {
+		.hero { justify-content: flex-start; gap: 22px; padding-top: 24px; padding-bottom: 16px; }
+		.top { flex-direction: column; gap: 10px; }
+		.tagline { font-size: 17px; line-height: 1.25; }
+		.status { gap: 10px; font-size: 11px; }
+		.status .rv-dot { width: 7px; height: 7px; }
+		.middle { flex-direction: column; align-items: stretch; gap: 14px; }
+		.name-col { flex: none; gap: 14px; padding-top: 0; }
+		.def { font-size: 12px; letter-spacing: .01em; line-height: 1.5; }
+		.middle :global(.moi) { flex: none; width: 228px; align-self: flex-end; margin-top: -6px; }
+		.pic { height: 196px; }
+		.pic img { width: 190px; height: 190px; }
+		.bottom { flex-direction: column; align-items: stretch; gap: 22px; padding-top: 20px; }
+		.statement { font-size: 22px; letter-spacing: -.02em; }
+		.tools-row { flex-direction: column; align-items: stretch; gap: 22px; }
+		.peek { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; }
+		.tile { width: auto; height: auto; aspect-ratio: 1; }
+		.tile svg { width: 20px; height: 20px; }
+		.stack-btn { width: 100%; min-width: 0; }
+		.stack { margin-top: -22px; }
+		.discover { gap: 4px; padding: 4px 18px; font-size: 16px; }
+	}
 	@media (prefers-reduced-motion: reduce) {
 		.stack, .stack.open, .chev, .tile { transition: none; }
 	}

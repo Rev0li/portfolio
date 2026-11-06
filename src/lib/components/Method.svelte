@@ -2,6 +2,12 @@
 	import { method } from '$lib/content/home';
 	import NextQuestion from './NextQuestion.svelte';
 
+	// Mobile : une étape à la fois, choisie par onglet
+	let step = $state(0);
+	let touched = $state(false);
+	const n = method.phases.length;
+	const pad = (i: number) => String(i + 1).padStart(2, '0');
+
 	// Les barres « moi » et « IA » se remplissent quand le tableau entre à l'écran.
 	function fillOnView(node: HTMLElement) {
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,6 +34,43 @@
 		<span class="rv-label rv-muted">{method.number}</span>
 		<h2 id="h-methode" class="rv-h2">{method.title}</h2>
 		<p class="sub">{method.sub} <span class="ai-txt">{method.subAi}</span></p>
+	</div>
+
+	<!-- Mobile : 5 onglets numérotés (touches rétro), barre de progression, une seule carte -->
+	<div class="steps">
+		<div class="tabs" role="tablist" aria-label={method.tabsLabel}>
+			{#each method.phases as phase, i (phase)}
+				<button
+					type="button"
+					role="tab"
+					id="step-tab-{i}"
+					class="rv-key tab"
+					class:on={i === step}
+					aria-selected={i === step}
+					aria-controls="step-panel"
+					aria-label="{pad(i)} {phase}"
+					onclick={() => ((step = i), (touched = true))}
+				><span class="rv-mono">{pad(i)}</span></button>
+			{/each}
+		</div>
+		<div class="prog" aria-hidden="true"><span style:width="{((step + 1) / n) * 100}%"></span></div>
+		{#if !touched}<span class="rv-label rv-hint hint"><span class="rv-bob" aria-hidden="true">↑</span>{method.stepHint}</span>{/if}
+		<div class="step" id="step-panel" role="tabpanel" aria-labelledby="step-tab-{step}">
+			<span class="step-h"><b>{method.phases[step]}</b><span class="rv-label rv-muted">[ {pad(step)} / {pad(n - 1)} ]</span></span>
+			{#each [{ key: 'me', cell: method.me.cells[step] }, { key: 'ai', cell: method.ai.cells[step] }] as { key, cell } (key)}
+				<div class="lane {key}">
+					{#if key === 'me'}
+						<span class="lane-av"><img src="/img/chibi-160.webp" alt={method.me.label} width="28" height="28" /></span>
+					{:else}
+						<span class="lane-av" role="img" aria-label={method.ai.label}>✦</span>
+					{/if}
+					<span class="lane-txt">
+						<span>{cell.text}</span>
+						{#if cell.chips}<span class="chips {key}">{#each cell.chips as chip (chip)}<i>{chip}</i>{/each}</span>{/if}
+					</span>
+				</div>
+			{/each}
+		</div>
 	</div>
 
 	<div class="lanes" role="table" aria-label={method.tableLabel} use:fillOnView>
@@ -136,5 +179,31 @@
 	.bar.ai { grid-row: 3; background: linear-gradient(to right, color-mix(in oklab, var(--rv-violet) 40%, transparent), var(--rv-violet) 30%); }
 	.lanes:global(.on) .bar { transform: none; opacity: 1; }
 
-	@media (prefers-reduced-motion: reduce) { .bar, .cell, .ph { transition: none; } }
+	/* Mobile */
+	.steps { display: none; }
+	@media (max-width: 760px) {
+		.head { gap: 10px; }
+		.sub { font-size: 17px; line-height: 1.4; }
+		.lanes { display: none; }
+		.steps { display: flex; flex-direction: column; gap: 10px; }
+		.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+		.tab { display: grid; place-items: center; min-height: 44px; padding: 0; border-radius: var(--rv-radius-md); color: var(--rv-turq-ink); }
+		.tab .rv-mono { font-size: 16px; font-weight: 500; }
+		.tab.on { background: var(--rv-turq); color: var(--rv-on-accent); }
+		.prog { height: 4px; margin-top: 2px; border-radius: 999px; background: var(--rv-line); overflow: hidden; }
+		.prog span { display: block; height: 100%; background: linear-gradient(to right, var(--rv-turq), var(--rv-violet)); transition: width .3s ease; }
+		.step { display: flex; flex-direction: column; min-height: 236px; margin-top: 4px; border: var(--rv-line-w) solid var(--rv-line); border-radius: 14px; overflow: hidden; background: var(--rv-surface); }
+		.step-h { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 12px 14px; border-bottom: var(--rv-line-w) solid var(--rv-line); }
+		.step-h b { font-size: 20px; letter-spacing: -.02em; }
+		.lane { flex: 1; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 12px 14px; font-size: 15px; line-height: 1.45; }
+		.lane.me { font-weight: 500; background: color-mix(in oklab, var(--rv-turq) 12%, var(--rv-surface)); }
+		.lane.ai { color: color-mix(in oklab, var(--rv-ink) 80%, transparent); background: color-mix(in oklab, var(--rv-violet) 14%, var(--rv-surface)); }
+		.lane-av { width: 28px; height: 28px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; border: 1.5px solid var(--rv-turq); background: var(--rv-surface); font-size: 13px; }
+		.lane-av img { width: 28px; height: 28px; object-fit: cover; }
+		.lane.ai .lane-av { border-color: var(--rv-violet); color: var(--rv-violet-ink); }
+		.lane-txt { display: flex; flex-direction: column; gap: 8px; }
+		.chips { gap: 5px; }
+		.chips i { padding: 2px 8px; font-size: 10.5px; }
+	}
+	@media (prefers-reduced-motion: reduce) { .bar, .cell, .ph, .prog span { transition: none; } }
 </style>

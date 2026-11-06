@@ -129,3 +129,18 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
   outil de mail ; aucun service ni secret à maintenir.
 - **Conséquences :** code serveur du contact retiré ; plus de `TELEGRAM_*` dans
   `.env` ; l'alias anonaddy reste la seule adresse publique.
+
+## ADR-010 — Mobile pensé à part, bascule en CSS
+- **Contexte :** la Home PC rétrécie à 390 px n'était ni lisible ni pratique au
+  doigt (PF-16) ; la planche mobile v2 refait chaque parcours.
+- **Décision (2026-11-06) :** une seule bascule, `@media (max-width: 760px)`.
+  Les tokens sont surchargés en mobile (gouttière, titres fluides) ; quand la
+  structure diffère (stack, projets, méthode, contact), les deux versions sont
+  dans le HTML et une seule est affichée. Sur mobile : pas de bandeau live ni
+  d'avatar dans la barre, sections à la hauteur de leur contenu, fenêtres non
+  déplaçables au doigt, `touch-action: manipulation` sur liens et boutons.
+- **Pourquoi :** même rendu serveur pour tous, pas de saut au chargement, pas de
+  détection d'appareil en JavaScript.
+- **Conséquences :** un peu de HTML en double sur 4 sections ; tout doit tenir
+  dès 320 px de large. Taille tablette à traiter à part. Le projet 05 devient
+  Kata.io (lien vers le jeu en ligne) à la place de Transcendence.

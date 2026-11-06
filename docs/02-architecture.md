@@ -25,7 +25,7 @@ Visiteur ──HTTPS──▶ VPS (reverse proxy, TLS)
 | Bandeau live | Services en ligne, dernier déploiement, mises à jour récentes | Svelte + `/api/live` |
 | Schéma pipeline | Vulgarisation du CI/CD du stage (ADR-005) | SVG inline + Svelte |
 | Section IA & workflow | 3-4 cas factuels avant/après | Svelte |
-| Projets | Fiches SongSurf (teaser vidéo), rev0auth, infra, Transcendence, + petits projets | Svelte |
+| Projets | Fiches SongSurf (teaser vidéo), rev0auth, infra, Kata.io (lien vers le jeu), + petits projets | Svelte |
 | Parcours | Timeline cuisine → Revoli → 42 → stage DevOps | Svelte |
 | Contact | Bouton « M’écrire » (mailto) + liens | Svelte |
 | Contenu | Tous les textes, FR + EN | Paraglide (messages) |
