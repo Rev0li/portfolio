@@ -56,7 +56,7 @@
 			<span class="rv-label rv-muted">{projects.number}</span>
 			<h2 id="h-projets" class="rv-h2">{projects.title}</h2>
 		</div>
-		<p class="sub rv-muted desk">{projects.sub}</p>
+		<p class="sub rv-muted desk"><span class="hov">{projects.sub}</span><span class="tch">{projects.subTouch}</span></p>
 		<p class="sub rv-muted mob">{projects.subMobile}</p>
 	</div>
 
@@ -175,6 +175,12 @@
 
 	/* Mobile */
 	.mob { display: none; }
+	/* Écran tactile (tablette en paysage) : pas de survol, on dit « touchez » */
+	.tch { display: none; }
+	@media (hover: none) {
+		.hov { display: none; }
+		.tch { display: inline; }
+	}
 	.pj-n { font-size: 14px; font-weight: 500; color: var(--rv-turq-ink); }
 	.pj-name { font-size: 24px; font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
 	.pj-kind { padding: 1px 8px; border: var(--rv-line-w) solid var(--rv-line); border-radius: 999px; font-size: 10px; color: var(--rv-muted); white-space: nowrap; }
@@ -214,10 +220,23 @@
 	.tile .pj-name { flex: 1; font-size: 19px; }
 	.tile-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
 	.tile .pj-go { font-size: 18px; }
-	@media (max-width: 760px) {
+	@media (max-width: 1023px) {
 		.desk { display: none; }
 		.mob { display: flex; }
 		p.mob { display: block; }
+	}
+	@media (min-width: 761px) and (max-width: 1023px) {
+		.mob-proj { gap: 16px; }
+		.lead-card { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+		.lead-card .rv-win-bar { grid-column: 1 / -1; }
+		.lead-prev { height: auto; min-height: 200px; padding: 0 28px; border-bottom: 0; border-right: var(--rv-line-w) solid var(--rv-ink); }
+		.lead-body { align-content: center; padding: 24px; }
+		.lead-body .pj-name { font-size: 28px; }
+		.pj-line { font-size: 15px; }
+		.tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+		.tile { min-height: 140px; padding: 14px; }
+	}
+	@media (max-width: 760px) {
 		.head { flex-direction: column; align-items: stretch; gap: 10px; }
 		.title { gap: 10px; }
 		.sub { font-size: 16px; line-height: 1.4; max-width: none; }

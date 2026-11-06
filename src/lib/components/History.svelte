@@ -64,6 +64,13 @@
 	}
 	.lv.max .tag { color: var(--rv-turq-ink); text-shadow: 0 0 12px color-mix(in oklab, var(--rv-turq) 60%, transparent); }
 	.years-now { display: inline-flex; align-items: center; gap: 8px; }
+	/* Tablette : niveaux en 2 × 2 (4 colonnes trop serrées), sans la barre qui suit les colonnes */
+	@media (min-width: 761px) and (max-width: 1023px) {
+		.bar { display: none; }
+		.levels { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; }
+		.lv { border-top: 4px solid var(--c); }
+		.lv.max { margin: 0; }
+	}
 	/* Mobile : frise XP verticale à gauche, un niveau sous l'autre */
 	@media (max-width: 760px) {
 		.history { gap: 36px; }

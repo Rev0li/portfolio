@@ -132,6 +132,7 @@ export const projects = {
 	number: '[ 02 ]',
 	title: 'Projets',
 	sub: 'Pas de captures d’écran : survolez un projet, il se lance en version démo.',
+	subTouch: 'Pas de captures d’écran : touchez un projet, il se lance en version démo.',
 	subMobile: 'Cinq projets, du plus important au plus ancien. Touchez-en un pour ouvrir sa page.',
 	othersLabel: 'Autres projets',
 	see: 'Voir le projet',

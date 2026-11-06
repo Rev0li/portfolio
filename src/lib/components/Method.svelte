@@ -50,7 +50,7 @@
 					aria-controls="step-panel"
 					aria-label="{pad(i)} {phase}"
 					onclick={() => ((step = i), (touched = true))}
-				><span class="rv-mono">{pad(i)}</span></button>
+				><span class="rv-mono">{pad(i)}</span><span class="tab-name" aria-hidden="true">{phase}</span></button>
 			{/each}
 		</div>
 		<div class="prog" aria-hidden="true"><span style:width="{((step + 1) / n) * 100}%"></span></div>
@@ -179,11 +179,13 @@
 	.bar.ai { grid-row: 3; background: linear-gradient(to right, color-mix(in oklab, var(--rv-violet) 40%, transparent), var(--rv-violet) 30%); }
 	.lanes:global(.on) .bar { transform: none; opacity: 1; }
 
-	/* Mobile */
-	.steps { display: none; }
+	/* Mobile et tablette : une étape à la fois (le tableau à 5 colonnes ne tient pas sous 1024 px) */
+	.steps, .tab-name { display: none; }
 	@media (max-width: 760px) {
 		.head { gap: 10px; }
 		.sub { font-size: 17px; line-height: 1.4; }
+	}
+	@media (max-width: 1023px) {
 		.lanes { display: none; }
 		.steps { display: flex; flex-direction: column; gap: 10px; }
 		.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
@@ -204,6 +206,13 @@
 		.lane-txt { display: flex; flex-direction: column; gap: 8px; }
 		.chips { gap: 5px; }
 		.chips i { padding: 2px 8px; font-size: 10.5px; }
+	}
+	@media (min-width: 761px) and (max-width: 1023px) {
+		.tab { display: flex; justify-content: center; gap: 8px; min-height: 52px; }
+		.tab-name { display: inline; font-size: 15px; font-weight: 600; }
+		.step { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+		.step-h { grid-column: 1 / -1; padding: 14px 18px; }
+		.lane { padding: 18px; font-size: 16px; }
 	}
 	@media (prefers-reduced-motion: reduce) { .bar, .cell, .ph, .prog span { transition: none; } }
 </style>
