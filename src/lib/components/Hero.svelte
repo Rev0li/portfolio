@@ -37,6 +37,8 @@
 		await tick();
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		if (willOpen && reduce) settled = true; // pas de transition, donc pas de fin de transition
+		// Filet si la fin de transition n'arrive jamais (constaté sur iPhone)
+		if (willOpen) setTimeout(() => open && (settled = true), 600);
 		const target = Math.max(0, heroBottom - innerHeight);
 		// à l'ouverture on ne fait que descendre, à la fermeture que remonter
 		const top = willOpen ? Math.max(scrollY, target) : Math.min(scrollY, target);
@@ -85,6 +87,7 @@
 		bind:this={stackEl}
 		class="stack"
 		class:open
+		class:settled
 		inert={!open}
 		ontransitionend={(e) => {
 			if (open && e.target === e.currentTarget && e.propertyName === 'grid-template-rows') settled = true;
@@ -143,6 +146,9 @@
 	}
 	.stack-in { min-height: 0; overflow: hidden; padding: 0 6px 6px 0; }
 	.stack-in.settled { overflow: visible; }
+	/* Une fois ouverte, la hauteur suit le contenu sans animation : changer de domaine
+	   (liste plus longue ou plus courte) ne doit pas rejouer le dépliage en coupant le bas */
+	.stack.open.settled { transition: none; }
 	.discover {
 		align-self: center; display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
 		min-height: var(--rv-control-h); padding: 8px 18px; border-radius: 999px;
