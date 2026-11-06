@@ -203,7 +203,7 @@
 	.lead-body { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 10px; padding: 16px 16px 14px; }
 	.lead-body .pj-n { padding-top: 4px; }
 	.pj-line { grid-column: 2; font-size: 14px; line-height: 1.35; color: var(--rv-muted); }
-	.lead-foot { grid-column: 1 / 3; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+	.lead-foot { grid-column: 1 / 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 12px; margin-top: 8px; }
 	.tiles { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 	.tiles li { display: flex; }
 	.tile {

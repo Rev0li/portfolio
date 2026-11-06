@@ -277,14 +277,14 @@ a { color: inherit; }
 	:root {
 		--rv-gutter: 20px;
 		--rv-section-gap: 48px;
-		--rv-text-h2: 44px;
+		--rv-text-h2: clamp(34px, 11.5vw, 44px); /* 44 px dès ~380 px, moins sur très petit écran */
 		--rv-text-hero: clamp(40px, 14vw, 54px); /* « DevOps & IA » tient sur une ligne dès 320 px */
 	}
 	:root:has(.rv-ticker) { --rv-top: 56px; } /* bandeau live masqué en mobile */
 	/* Sections : plus de plein écran, elles prennent la hauteur de leur contenu */
 	.rv-sec.screen { min-height: 0; justify-content: flex-start; padding-top: 48px; padding-bottom: 28px; }
 	.rv-sec.compact { gap: 22px; }
-	.rv-sec.compact .rv-h2 { font-size: 44px; }
+	.rv-sec.compact .rv-h2 { font-size: var(--rv-text-h2); }
 	.rv-sec.compact .rv-next-q, .rv-next-q { font-size: 21px; }
 	.rv-next { margin-top: 8px; padding: 12px 16px; gap: 8px; }
 	.rv-bob { font-size: 20px; }

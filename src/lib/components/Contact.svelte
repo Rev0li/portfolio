@@ -73,7 +73,7 @@
 	@media (max-width: 760px) {
 		.contact { gap: 32px; padding-top: 48px; padding-bottom: 24px; background-position: 30% center; }
 		.head { gap: 12px; }
-		.title { font-size: 52px; line-height: .9; }
+		.title { font-size: clamp(40px, 14vw, 52px); line-height: .9; }
 		.reach { display: flex; flex-direction: column; gap: 10px; }
 		.reach .rv-pill { width: 100%; box-sizing: border-box; justify-content: center; min-height: 58px; font-size: 18px; border-color: var(--rv-band-ink); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 3px 3px 0 rgba(0, 0, 0, .6); }
 		.reach .mail { align-self: center; font-size: 12px; }
