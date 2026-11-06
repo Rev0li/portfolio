@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { icons } from '$lib/content/icons';
+	import { domainIcons, icons } from '$lib/content/icons';
 	import { stack, stackLabels } from '$lib/content/home';
 	import Window from './Window.svelte';
 
 	let { count }: { count: number } = $props();
 	let current = $state(0);
+	let touched = $state(false); // la consigne mobile disparaît au premier choix
 
 	const brand = (key: string) => {
 		const hex = (icons[key] ?? icons.spark)[0];
@@ -14,8 +15,30 @@
 </script>
 
 <Window title={stackLabels.title(count)}>
+	<!-- Mobile : les 7 domaines en touches rétro toujours visibles, nom et position dessous -->
+	<div class="doms">
+		<div class="dom-grid" role="group" aria-label="Domaines">
+			{#each stack as [domain], i (domain)}
+				<button
+					type="button"
+					class="rv-key fitem"
+					class:on={i === current}
+					aria-pressed={i === current}
+					aria-label={domain}
+					title={domain}
+					onclick={() => ((current = i), (touched = true))}
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={domainIcons[i]} /></svg>
+				</button>
+			{/each}
+		</div>
+		<div class="dom-name" aria-live="polite">
+			<b>{stack[current][0]}</b><span class="rv-label rv-muted">{stackLabels.domainPos(current + 1, stack.length, stack[current][1].length)}</span>
+		</div>
+		{#if !touched}<span class="rv-label rv-hint"><span class="rv-bob" aria-hidden="true">↑</span>{stackLabels.domainHint}</span>{/if}
+	</div>
 	<div class="grid">
-		<div class="col" role="group" aria-label="Domaines">
+		<div class="col dom-list" role="group" aria-label="Domaines">
 			<span class="rv-label rv-muted head">{stackLabels.domains}</span>
 			{#each stack as [domain, tools], i (domain)}
 				<button type="button" class="item" class:on={i === current} aria-pressed={i === current} onclick={() => (current = i)}>
@@ -75,5 +98,20 @@
 	.txt b { font-size: 15px; font-weight: 600; }
 	.txt .rv-muted { font-size: 13px; line-height: 1.4; }
 	@keyframes cascade { from { opacity: 0; transform: translateY(-6px); } }
+	.doms { display: none; }
+	@media (max-width: 760px) {
+		.doms { display: flex; flex-direction: column; gap: 10px; padding: 12px 12px 14px; border-bottom: var(--rv-line-w) solid var(--rv-line); }
+		.dom-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+		.fitem { aspect-ratio: 1; display: grid; place-items: center; padding: 0; border-radius: var(--rv-radius-md); }
+		.fitem svg { width: 20px; height: 20px; }
+		.fitem.on { background: var(--rv-ink); color: var(--rv-bg); }
+		.dom-name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+		.dom-name b { font-size: 17px; letter-spacing: -.01em; }
+		.grid { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+		.dom-list, .tools-col .head { display: none; }
+		.tools-col { padding: 12px; }
+		.tools { grid-template-columns: minmax(0, 1fr); }
+		.ico { width: 36px; height: 36px; background: color-mix(in oklab, var(--b) 14%, transparent); color: var(--b); }
+	}
 	@media (prefers-reduced-motion: reduce) { .tool { animation: none; } }
 </style>

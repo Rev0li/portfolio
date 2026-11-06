@@ -26,4 +26,7 @@
 		font-size: 13px; text-decoration: none;
 	}
 	.gh:hover { border-bottom-color: currentColor; color: var(--rv-turq-ink); }
+	@media (max-width: 760px) {
+		.gh { display: none; }
+	}
 </style>

@@ -269,3 +269,39 @@ a { color: inherit; }
 	.rv-dot, .rv-bob { animation: none; }
 	.rv-pill:hover { transform: none; }
 }
+
+/* ── Mobile (≤ 760 px) : pensé parcours par parcours, pas le PC rétréci (planche « Home · 390 ») ── */
+@media (max-width: 760px) {
+	:root {
+		--rv-gutter: 20px;
+		--rv-section-gap: 48px;
+		--rv-text-h2: 44px;
+		--rv-text-hero: 54px;
+	}
+	/* Sections : plus de plein écran, elles prennent la hauteur de leur contenu */
+	.rv-sec.screen { min-height: 0; justify-content: flex-start; padding-top: 48px; padding-bottom: 28px; }
+	.rv-sec.compact { gap: 22px; }
+	.rv-sec.compact .rv-h2 { font-size: 44px; }
+	.rv-sec.compact .rv-next-q, .rv-next-q { font-size: 21px; }
+	.rv-next { margin-top: 8px; padding: 12px 16px; gap: 8px; }
+	.rv-bob { font-size: 20px; }
+	.rv-sticker { width: 56px; height: 56px; margin: -4px 0 0 8px; }
+	.rv-nav { gap: 6px; padding: 0 12px 0 var(--rv-gutter); }
+	.rv-nav-link { min-height: 44px; }
+	/* Pas de déplacement des fenêtres au doigt : la barre laisse défiler la page */
+	.rv-win-bar[data-drag] { cursor: default; touch-action: auto; }
+	.rv-win-tip { display: none; }
+}
+
+/* Touche rétro : relief (bord foncé + ombre nette) = ça se touche ; enfoncée quand choisie */
+.rv-key {
+	border: var(--rv-line-w) solid var(--rv-ink); background: var(--rv-surface); color: var(--rv-ink);
+	box-shadow: 2px 2px 0 var(--rv-hard); cursor: pointer;
+	transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+}
+.rv-key:active, .rv-key[aria-pressed='true'], .rv-key[aria-selected='true'] { transform: translate(2px, 2px); box-shadow: none; }
+/* Consigne « ↑ touchez… » : disparaît au premier toucher */
+.rv-hint { display: inline-flex; align-items: center; gap: 6px; color: var(--rv-turq-ink); }
+.rv-hint .rv-bob { font-size: 14px; animation-name: rv-bobup; }
+@keyframes rv-bobup { 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .rv-key { transition: none; } }

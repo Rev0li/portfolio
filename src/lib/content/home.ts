@@ -92,7 +92,9 @@ export const stackLabels = {
 	title: (count: number) => `stack.app — ${count} outils`,
 	domains: '[ domaine ]',
 	tools: '[ outils · où je les utilise ]',
-	peek: 'Outils principaux'
+	peek: 'Outils principaux',
+	domainHint: 'touchez une icône pour changer de domaine',
+	domainPos: (pos: number, total: number, count: number) => `[ ${pos} / ${total} ] · ${count} outils`
 } as const;
 
 export type Level = { tag: string; years: string; title: string; text: string; color: string; current?: boolean };
@@ -106,10 +108,10 @@ export const history = {
 		{ tag: 'LV.3', years: '2024 — 2026', title: '42 Lyon', text: ', sans profs : apprendre des autres, se gérer seul, et relire le code d’un pair avec un œil critique mais constructif.', color: 'var(--rv-violet)' },
 		{ tag: 'LV.MAX', years: '2026 — maintenant', title: 'Aujourd’hui', text: ', les commandes sont devenues des déploiements, la mise en place un pipeline, et le plat une idée servie en production, sécurisée.', color: 'var(--rv-turq)', current: true }
 	] satisfies Level[],
-	next: { question: 'Et concrètement, ça donne quoi ?', label: '[ 02 ] Projets' }
+	next: { question: 'Et concrètement, ça donne quoi ?', label: '[ 02 ] Projets' }
 } as const;
 
-export type ProjectPreview = 'cicd' | 'infra' | 'auth' | 'song' | 'pong';
+export type ProjectPreview = 'cicd' | 'infra' | 'auth' | 'song' | 'kata';
 export type Project = {
 	n: string;
 	preview: ProjectPreview;
@@ -117,23 +119,29 @@ export type Project = {
 	line: string;
 	app: string;
 	kind: string;
+	/** type en version courte (tuiles mobile) */
+	kindShort: string;
 	pitch: string;
 	href: string;
 	cta: string;
-	soon?: string;
+	/** lien vers un autre site : s'ouvre avec ↗ au lieu de → */
+	external?: boolean;
 };
 
 export const projects = {
 	number: '[ 02 ]',
 	title: 'Projets',
 	sub: 'Pas de captures d’écran : survolez un projet, il se lance en version démo.',
+	subMobile: 'Cinq projets, du plus important au plus ancien. Touchez-en un pour ouvrir sa page.',
+	othersLabel: 'Autres projets',
+	see: 'Voir le projet',
 	listLabel: 'Projets, par ordre d’importance',
 	items: [
-		{ n: '01', preview: 'cicd', name: 'DevOps — Pipeline CI/CD', line: 'Une appli métier critique, de Git à Kubernetes.', app: 'pipeline.app', kind: 'Projet pro · en entreprise', pitch: 'Suivez un merge jusqu’en production : build, registre d’images, GitOps, Kubernetes, secrets Vault et supervision.', href: '/projets/cicd', cta: 'Voir le cas d’étude' },
-		{ n: '02', preview: 'infra', name: 'Infra self-host', line: 'NAS + VPS : le serveur qui fait tourner ce site.', app: 'infra.app', kind: 'Projet perso', pitch: 'Suivez une requête à travers le pare-feu, le reverse proxy, l’auth et le tunnel, jusqu’à la maison.', href: '/projets/infra', cta: 'Lancer la démo' },
-		{ n: '03', preview: 'auth', name: 'rev0auth', line: 'La porte d’entrée de tous mes services.', app: 'rev0auth.app', kind: 'Projet perso', pitch: 'Connectez-vous avec un compte démo : une page vous est refusée, puis ouverte avec le bon rôle.', href: '/projets/rev0auth', cta: 'Lancer la démo' },
-		{ n: '04', preview: 'song', name: 'SongSurf', line: 'Trouver, ranger, écouter sa musique.', app: 'songsurf.app', kind: 'Projet perso', pitch: 'Une démo guidée avec un titre libre de droits. Envie d’accéder à la vraie version ? Écrivez-moi.', href: '/projets/songsurf', cta: 'Lancer la démo' },
-		{ n: '05', preview: 'pong', name: 'Transcendence', line: 'Projet 42 : jeu temps réel, lead d’une équipe de 5.', app: 'pong.app', kind: 'Projet d’école · 42', pitch: 'Une partie contre un bot, sans compte. La version complète, en ligne, est jouable avec un compte.', href: '/projets/transcendence', cta: 'Voir le projet', soon: 'démo en préparation · version en ligne avec compte' }
+		{ n: '01', preview: 'cicd', name: 'DevOps — Pipeline CI/CD', line: 'Une appli métier critique, de Git à Kubernetes.', app: 'pipeline.app', kind: 'Projet pro · en entreprise', kindShort: 'Pro', pitch: 'Suivez un merge jusqu’en production : build, registre d’images, GitOps, Kubernetes, secrets Vault et supervision.', href: '/projets/cicd', cta: 'Voir le cas d’étude' },
+		{ n: '02', preview: 'infra', name: 'Infra self-host', line: 'NAS + VPS : le serveur qui fait tourner ce site.', app: 'infra.app', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Suivez une requête à travers le pare-feu, le reverse proxy, l’auth et le tunnel, jusqu’à la maison.', href: '/projets/infra', cta: 'Lancer la démo' },
+		{ n: '03', preview: 'auth', name: 'rev0auth', line: 'La porte d’entrée de tous mes services.', app: 'rev0auth.app', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Connectez-vous avec un compte démo : une page vous est refusée, puis ouverte avec le bon rôle.', href: '/projets/rev0auth', cta: 'Lancer la démo' },
+		{ n: '04', preview: 'song', name: 'SongSurf', line: 'Trouver, ranger, écouter sa musique.', app: 'songsurf.app', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Une démo guidée avec un titre libre de droits. Envie d’accéder à la vraie version ? Écrivez-moi.', href: '/projets/songsurf', cta: 'Lancer la démo' },
+		{ n: '05', preview: 'kata', name: 'Kata.io', line: 'Duel de kung-fu en 1 contre 1, dans le navigateur.', app: 'kata.io', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Frappez, parez, esquivez : envoyez l’adversaire dans le lac. Seul contre les gardiens du temple, ou en duel avec un ami.', href: 'https://kata-io.vercel.app', cta: 'Jouer à Kata.io', external: true }
 	] satisfies Project[],
 	previews: {
 		cicdTop: 'git push · commit a3f9c1',
@@ -144,9 +152,10 @@ export const projects = {
 		infraServices: ['SongSurf', 'Seafile', 'Jellyfin', 'CouchDB', 'portfolio'],
 		authOk: 'rôle : démo ✓',
 		song: '♪ titre libre de droits',
-		pong: 'VOUS 2 · 3 BOT'
+		kata: 'premier à 3 éjections',
+		leadPipe: ['Git', 'Build', 'Registre', 'GitOps', 'K8s']
 	},
-	next: { question: 'Et derrière, quelle méthode ?', label: '[ 03 ] Comment je travaille' }
+	next: { question: 'Et derrière, quelle méthode ?', label: '[ 03 ] Comment je travaille' }
 } as const;
 
 export type Lane = { text: string; chips?: readonly string[] };
@@ -158,6 +167,8 @@ export const method = {
 	subAi: 'L’IA avance en parallèle, jamais à ma place.',
 	tableLabel: 'Ce que je fais et ce que fait l’IA, de l’idée à la prod',
 	phases: ['Idée', 'Conception', 'Réalisation', 'Vérification', 'Prod'],
+	tabsLabel: 'Les 5 étapes, de l’idée à la prod',
+	stepHint: 'touchez une étape',
 	me: {
 		label: 'moi',
 		cells: [
@@ -178,12 +189,12 @@ export const method = {
 			{ text: 'Le pipeline enchaîne build, tests et déploiement, sans geste manuel.', chips: ['pipeline CI/CD complet'] }
 		] satisfies Lane[]
 	},
-	next: { question: 'Un projet en tête ?', label: '[ 04 ] Contact' }
+	next: { question: 'Un projet en tête ?', label: '[ 04 ] Contact' }
 } as const;
 
 export const contact = {
 	number: '[ 04 ]',
-	title: 'On en parle ?',
+	title: 'On en parle ?',
 	links: [
 		{ label: 'LinkedIn', icon: '↗', href: 'https://www.linkedin.com/in/oliver-kientzler-48088020a/' },
 		{ label: 'GitHub', icon: '↗', href: 'https://github.com/Rev0li' },

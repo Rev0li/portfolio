@@ -40,9 +40,10 @@
 			<span class="rv-mono ps-t">{t.song}</span>
 		</div>
 	{:else}
-		<div class="pp">
-			<span class="pp-l"></span><span class="pp-net"></span><span class="pp-b"></span><span class="pp-r"></span>
-			<span class="rv-mono pp-s">{t.pong}</span>
+		<div class="kt">
+			<span class="rv-mono kt-s">{t.kata}</span>
+			<span class="kt-dojo"><span class="kt-a"></span><span class="kt-b"></span></span>
+			<span class="kt-lake"></span>
 		</div>
 	{/if}
 </div>
@@ -110,21 +111,36 @@
 	@keyframes eq { from { transform: scaleY(.2); } to { transform: scaleY(1); } }
 	.ps-t { font-size: 11px; color: var(--rv-muted); }
 
-	/* Transcendence : pong */
-	.pp { position: absolute; inset: 28px 40px; border: var(--rv-line-w) solid var(--rv-ink); border-radius: var(--rv-radius-sm); background: var(--rv-surface); }
-	.pp-l, .pp-r { position: absolute; width: 5px; height: 30px; border-radius: 3px; background: var(--rv-ink); }
-	.pp-l { left: 10px; animation: padl 2.4s ease-in-out infinite alternate; }
-	.pp-r { right: 10px; animation: padr 2.4s ease-in-out infinite alternate; }
-	.pp-net { position: absolute; left: 50%; top: 6px; bottom: 6px; border-left: 1px dashed var(--rv-line); }
-	.pp-b { position: absolute; width: 9px; height: 9px; border-radius: 2px; background: var(--rv-turq); animation: ballx 2.4s linear infinite alternate, bally 1.7s ease-in-out infinite alternate; }
-	.pp-s { position: absolute; top: 4px; left: 0; right: 0; text-align: center; font-size: 9px; color: var(--rv-muted); }
-	@keyframes padl { from { top: 12%; } to { top: 58%; } }
-	@keyframes padr { from { top: 55%; } to { top: 14%; } }
-	@keyframes ballx { from { left: 18px; } to { left: calc(100% - 27px); } }
-	@keyframes bally { from { top: 20%; } to { top: 72%; } }
+	/* Kata.io : duel sur le dojo, l'adversaire finit dans le lac */
+	.kt { position: absolute; inset: 0; }
+	.kt-s { position: absolute; top: 10px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(--rv-muted); }
+	.kt-lake {
+		position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
+		background: repeating-linear-gradient(to bottom, color-mix(in oklab, var(--rv-turq) 34%, var(--rv-surface)) 0 6px, color-mix(in oklab, var(--rv-turq) 22%, var(--rv-surface)) 6px 12px);
+		border-top: var(--rv-line-w) solid var(--rv-ink);
+	}
+	.kt-dojo {
+		position: absolute; left: 22%; right: 22%; bottom: 30%; height: 12px; z-index: 1;
+		border: var(--rv-line-w) solid var(--rv-ink); border-radius: 3px 3px 0 0;
+		background: repeating-linear-gradient(to right, var(--rv-ocre) 0 14px, color-mix(in oklab, var(--rv-ocre) 70%, var(--rv-ink)) 14px 15px);
+	}
+	.kt-a, .kt-b {
+		position: absolute; bottom: 100%; width: 18px; height: 26px; margin-bottom: 1px;
+		border: var(--rv-line-w) solid var(--rv-ink); border-radius: 6px 6px 3px 3px;
+	}
+	.kt-a { left: 18%; background: var(--rv-turq); animation: kta 2.8s ease-in-out infinite; }
+	.kt-b { right: 18%; background: var(--rv-rose); animation: ktb 2.8s ease-in infinite; }
+	@keyframes kta { 0%, 20% { left: 18%; } 38% { left: 52%; } 46% { left: 46%; } 80%, 100% { left: 18%; } }
+	@keyframes ktb {
+		0%, 34% { right: 18%; bottom: 100%; rotate: 0deg; opacity: 1; }
+		48% { right: -18%; bottom: 140%; rotate: 50deg; }
+		62% { right: -32%; bottom: -150%; rotate: 120deg; opacity: 1; }
+		63%, 80% { opacity: 0; right: 18%; bottom: 100%; rotate: 0deg; }
+		100% { opacity: 1; }
+	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.pc-row span, .pi-dot, .ps-eq i, .pp-l, .pp-r, .pp-b { animation: none; }
+		.pc-row span, .pi-dot, .ps-eq i, .kt-a, .kt-b { animation: none; }
 		.pc-row span { background: var(--rv-turq); color: var(--rv-on-accent); }
 	}
 </style>

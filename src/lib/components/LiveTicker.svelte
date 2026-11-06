@@ -92,5 +92,10 @@
 	.ti b { font-weight: 500; color: var(--rv-turq-ink); }
 	.sep { color: var(--rv-turq-ink); }
 	.rv-dot.down { background: var(--rv-danger); box-shadow: 0 0 0 3px color-mix(in oklab, var(--rv-danger) 30%, transparent); animation: none; }
+	@media (max-width: 760px) {
+		.head { gap: 8px; padding: 0 10px 0 var(--rv-gutter); }
+		.marquee { font-size: 11px; }
+		.group { gap: 28px; padding-right: 28px; }
+	}
 	@media (prefers-reduced-motion: reduce) { .track { animation: none; } }
 </style>

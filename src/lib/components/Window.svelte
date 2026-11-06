@@ -22,7 +22,8 @@
 	const z = $derived(moved ? (windowStack.top === id ? 4 : 3) : undefined);
 
 	function down(e: PointerEvent) {
-		if (!draggable || e.button !== 0) return;
+		// au doigt, la barre sert à faire défiler la page, pas à déplacer la fenêtre
+		if (!draggable || e.button !== 0 || e.pointerType === 'touch') return;
 		(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 		start = { px: e.clientX, py: e.clientY, x, y };
 		windowStack.top = id;

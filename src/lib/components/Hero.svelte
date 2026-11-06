@@ -149,6 +149,29 @@
 		font-size: 17px; font-weight: 700; text-decoration: none;
 	}
 	.discover:hover { color: var(--rv-turq-ink); }
+	/* Mobile : tout en colonne, moi.png à droite sous le nom, 8 logos sur une ligne, stack pleine largeur */
+	@media (max-width: 760px) {
+		.hero { justify-content: flex-start; gap: 22px; padding-top: 24px; padding-bottom: 16px; }
+		.top { flex-direction: column; gap: 10px; }
+		.tagline { font-size: 17px; line-height: 1.25; }
+		.status { gap: 10px; font-size: 11px; }
+		.status .rv-dot { width: 7px; height: 7px; }
+		.middle { flex-direction: column; align-items: stretch; gap: 14px; }
+		.name-col { flex: none; gap: 14px; padding-top: 0; }
+		.def { font-size: 12px; letter-spacing: .01em; line-height: 1.5; }
+		.middle :global(.moi) { flex: none; width: 228px; align-self: flex-end; margin-top: -6px; }
+		.pic { height: 196px; }
+		.pic img { width: 190px; height: 190px; }
+		.bottom { flex-direction: column; align-items: stretch; gap: 22px; padding-top: 20px; }
+		.statement { font-size: 22px; letter-spacing: -.02em; }
+		.tools-row { flex-direction: column; align-items: stretch; gap: 22px; }
+		.peek { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; }
+		.tile { width: auto; height: auto; aspect-ratio: 1; }
+		.tile svg { width: 20px; height: 20px; }
+		.stack-btn { width: 100%; min-width: 0; }
+		.stack { margin-top: -22px; }
+		.discover { gap: 4px; padding: 4px 18px; font-size: 16px; }
+	}
 	@media (prefers-reduced-motion: reduce) {
 		.stack, .stack.open, .chev, .tile { transition: none; }
 	}

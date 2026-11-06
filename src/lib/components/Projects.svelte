@@ -8,6 +8,7 @@
 
 	let current = $state(0);
 	const p = $derived(projects.items[current]);
+	const [lead, ...others] = projects.items;
 
 	// Triangle de sécurité : voir $lib/aim
 	let pts: Point[] = [];
@@ -55,10 +56,50 @@
 			<span class="rv-label rv-muted">{projects.number}</span>
 			<h2 id="h-projets" class="rv-h2">{projects.title}</h2>
 		</div>
-		<p class="sub rv-muted">{projects.sub}</p>
+		<p class="sub rv-muted desk">{projects.sub}</p>
+		<p class="sub rv-muted mob">{projects.subMobile}</p>
 	</div>
 
-	<div class="proj">
+	<!-- Mobile : le projet phare en fenêtre avec aperçu, les 4 autres en tuiles ; toucher = ouvrir -->
+	<div class="mob mob-proj">
+		<a class="rv-win lead-card" href={lead.href}>
+			<span class="rv-win-bar" aria-hidden="true">
+				<span class="rv-gels"><span class="rv-gel rose"></span><span class="rv-gel ocre"></span><span class="rv-gel"></span></span>
+				<span class="rv-win-title"><span>{lead.app}</span></span>
+			</span>
+			<span class="lead-prev" aria-hidden="true">
+				<span class="pipe">
+					{#each projects.previews.leadPipe as st (st)}<span class="st"><i></i><span class="rv-label">{st}</span></span>{/each}
+					<span class="pipe-run"></span>
+				</span>
+			</span>
+			<span class="lead-body">
+				<span class="rv-mono pj-n">{lead.n}</span>
+				<span class="pj-name">{lead.name}</span>
+				<span class="pj-line">{lead.line}</span>
+				<span class="lead-foot">
+					<span class="rv-label pj-kind">{lead.kind}</span>
+					<span class="pj-go">{projects.see} <span aria-hidden="true">→</span></span>
+				</span>
+			</span>
+		</a>
+		<ul class="tiles" aria-label={projects.othersLabel}>
+			{#each others as item (item.n)}
+				<li>
+					<a class="tile" href={item.href}>
+						<span class="rv-mono pj-n">{item.n}</span>
+						<span class="pj-name">{item.name}</span>
+						<span class="tile-foot">
+							<span class="rv-label pj-kind">{item.kindShort}</span>
+							<span class="pj-go" aria-hidden="true">{item.external ? '↗' : '→'}</span>
+						</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</div>
+
+	<div class="proj desk">
 		<ol class="list" aria-label={projects.listLabel} onmousemove={onMove} onmouseleave={onLeave}>
 			{#each projects.items as item, i (item.n)}
 				<li>
@@ -92,8 +133,7 @@
 							<span class="rv-muted pitch">{p.pitch}</span>
 						</div>
 						<div class="cta">
-							<a class="rv-pill gel" href={p.href}>{p.cta} <span aria-hidden="true">→</span></a>
-							{#if p.soon}<span class="soon rv-mono">{p.soon}</span>{/if}
+							<a class="rv-pill gel" href={p.href}>{p.cta} <span aria-hidden="true">{p.external ? '↗' : '→'}</span></a>
 						</div>
 					</div>
 				</div>
@@ -132,6 +172,58 @@
 	.demo-name { font-size: 32px; font-weight: 800; letter-spacing: -.03em; }
 	.pitch { font-size: 16px; line-height: 1.45; }
 	.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
-	.soon { align-self: flex-start; margin-top: 6px; padding: 2px 8px; border: 1px dashed var(--rv-muted); border-radius: 999px; font-size: 11px; color: var(--rv-muted); }
-	@media (prefers-reduced-motion: reduce) { .row, .arrow { transition: none; } }
+
+	/* Mobile */
+	.mob { display: none; }
+	.pj-n { font-size: 14px; font-weight: 500; color: var(--rv-turq-ink); }
+	.pj-name { font-size: 24px; font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
+	.pj-kind { padding: 1px 8px; border: var(--rv-line-w) solid var(--rv-line); border-radius: 999px; font-size: 10px; color: var(--rv-muted); white-space: nowrap; }
+	.pj-go { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 15px; font-weight: 700; color: var(--rv-turq-ink); }
+	.mob-proj { flex-direction: column; gap: 12px; }
+	.lead-card, .tile { text-decoration: none; color: var(--rv-ink); transition: transform .12s ease, box-shadow .12s ease; }
+	.lead-card { display: block; }
+	.lead-card:active, .tile:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--rv-hard); }
+	.lead-prev {
+		display: flex; align-items: center; height: 112px; box-sizing: border-box; padding: 0 18px;
+		border-bottom: var(--rv-line-w) solid var(--rv-ink);
+		background-color: color-mix(in oklab, var(--rv-turq) 12%, var(--rv-surface));
+		background-image: radial-gradient(var(--rv-dots) 1px, transparent 1.4px); background-size: 14px 14px;
+	}
+	.pipe { position: relative; flex: 1; display: flex; justify-content: space-between; }
+	.pipe::before { content: ''; position: absolute; left: 12px; right: 12px; top: 11px; height: 2px; background: var(--rv-line-strong); }
+	.st { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+	.st i { display: block; width: 24px; height: 24px; box-sizing: border-box; border: var(--rv-line-w) solid var(--rv-ink); border-radius: 7px; background: var(--rv-surface); }
+	.st:last-of-type i { background: var(--rv-turq); }
+	.st .rv-label { font-size: 10px; color: var(--rv-muted); }
+	.pipe-run {
+		position: absolute; left: 6px; top: 6px; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%;
+		border: var(--rv-line-w) solid var(--rv-ink); background: var(--rv-turq); animation: run 3.2s ease-in-out infinite;
+	}
+	@keyframes run { 0% { left: 6px; opacity: 0; } 10%, 85% { opacity: 1; } 100% { left: calc(100% - 18px); opacity: 0; } }
+	.lead-body { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 10px; padding: 16px 16px 14px; }
+	.lead-body .pj-n { padding-top: 4px; }
+	.pj-line { grid-column: 2; font-size: 14px; line-height: 1.35; color: var(--rv-muted); }
+	.lead-foot { grid-column: 1 / 3; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+	.tiles { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+	.tiles li { display: flex; }
+	.tile {
+		flex: 1; display: flex; flex-direction: column; gap: 6px; min-height: 120px; box-sizing: border-box; padding: 12px 12px 10px;
+		background: var(--rv-surface); border: var(--rv-line-w) solid var(--rv-ink); border-radius: var(--rv-radius-window);
+		box-shadow: 3px 3px 0 var(--rv-hard);
+	}
+	.tile .pj-name { flex: 1; font-size: 19px; }
+	.tile-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+	.tile .pj-go { font-size: 18px; }
+	@media (max-width: 760px) {
+		.desk { display: none; }
+		.mob { display: flex; }
+		p.mob { display: block; }
+		.head { flex-direction: column; align-items: stretch; gap: 10px; }
+		.title { gap: 10px; }
+		.sub { font-size: 16px; line-height: 1.4; max-width: none; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.row, .arrow, .lead-card, .tile { transition: none; }
+		.pipe-run { animation: none; left: calc(100% - 18px); }
+	}
 </style>
