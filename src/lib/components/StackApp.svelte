@@ -130,8 +130,9 @@
 	.doms, .mtools { display: none; }
 	@media (max-width: 760px) {
 		.doms { display: flex; flex-direction: column; gap: 10px; padding: 12px 12px 14px; border-bottom: var(--rv-line-w) solid var(--rv-line); }
-		.dom-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
-		.fitem { aspect-ratio: 1; display: grid; place-items: center; padding: 0; border-radius: var(--rv-radius-md); }
+		.dom-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+		/* 44 px de haut au moins : sur un petit écran, les touches carrées faisaient ~36 px */
+		.fitem { aspect-ratio: 1; min-height: 44px; display: grid; place-items: center; padding: 0; border-radius: var(--rv-radius-md); -webkit-tap-highlight-color: transparent; }
 		.fitem svg { width: 20px; height: 20px; }
 		.fitem.on { background: var(--rv-ink); color: var(--rv-bg); }
 		.dom-name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }

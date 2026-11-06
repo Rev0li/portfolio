@@ -21,6 +21,8 @@ body {
 	transition: background-color var(--rv-dur) var(--rv-ease), color var(--rv-dur) var(--rv-ease);
 }
 a { color: inherit; }
+/* Au doigt : pas de zoom au double toucher (sur iOS, deux touches rapides zoomaient et recentraient la page) */
+:where(a, button, label, summary) { touch-action: manipulation; }
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {
 	outline: var(--rv-focus-ring);
 	outline-offset: var(--rv-focus-offset);
