@@ -93,8 +93,8 @@ export const stackLabels = {
 	domains: '[ domaine ]',
 	tools: '[ outils · où je les utilise ]',
 	peek: 'Outils principaux',
-	domainHint: 'touchez une icône pour changer de domaine',
-	domainPos: (pos: number, total: number, count: number) => `[ ${pos} / ${total} ] · ${count} outils`
+	domainHint: 'touchez un domaine',
+	domainPos: (pos: number, total: number) => `[ ${pos} / ${total} ]`
 } as const;
 
 export type Level = { tag: string; years: string; title: string; text: string; color: string; current?: boolean };

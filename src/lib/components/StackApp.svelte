@@ -1,11 +1,19 @@
 <script lang="ts">
 	import { domainIcons, icons } from '$lib/content/icons';
 	import { stack, stackLabels } from '$lib/content/home';
+	import { splitWhere } from '$lib/toolwhere';
 	import Window from './Window.svelte';
 
 	let { count }: { count: number } = $props();
 	let current = $state(0);
 	let touched = $state(false); // la consigne mobile disparaît au premier choix
+	let openTool = $state<string | null>(null); // mobile : une seule phrase dépliée à la fois
+
+	function pickDomain(i: number) {
+		current = i;
+		touched = true;
+		openTool = null;
+	}
 
 	const brand = (key: string) => {
 		const hex = (icons[key] ?? icons.spark)[0];
@@ -26,17 +34,38 @@
 					aria-pressed={i === current}
 					aria-label={domain}
 					title={domain}
-					onclick={() => ((current = i), (touched = true))}
+					onclick={() => pickDomain(i)}
 				>
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={domainIcons[i]} /></svg>
 				</button>
 			{/each}
 		</div>
 		<div class="dom-name" aria-live="polite">
-			<b>{stack[current][0]}</b><span class="rv-label rv-muted">{stackLabels.domainPos(current + 1, stack.length, stack[current][1].length)}</span>
+			<b>{stack[current][0]}</b><span class="rv-label rv-muted">{stackLabels.domainPos(current + 1, stack.length)}</span>
 		</div>
 		{#if !touched}<span class="rv-label rv-hint"><span class="rv-bob" aria-hidden="true">↑</span>{stackLabels.domainHint}</span>{/if}
 	</div>
+	<!-- Mobile : une ligne courte par outil ; toucher déplie la phrase -->
+	<ul class="mtools">
+		{#each stack[current][1] as [name, where, icon] (name)}
+			{@const w = splitWhere(where)}
+			<li style:--b={brand(icon)}>
+				{#snippet row()}
+					<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d={path(icon)} /></svg></span>
+					<b class="mname">{name}</b>
+					{#if w.tag}<span class="rv-label mtag">{w.tag}</span>{/if}
+				{/snippet}
+				{#if w.detail}
+					<button type="button" class="mrow" aria-expanded={openTool === name} onclick={() => (openTool = openTool === name ? null : name)}>
+						{@render row()}<span class="mchev" class:up={openTool === name} aria-hidden="true">▾</span>
+					</button>
+					{#if openTool === name}<p class="mdetail rv-muted">{w.detail}</p>{/if}
+				{:else}
+					<div class="mrow">{@render row()}<span class="mchev" aria-hidden="true"></span></div>
+				{/if}
+			</li>
+		{/each}
+	</ul>
 	<div class="grid">
 		<div class="col dom-list" role="group" aria-label="Domaines">
 			<span class="rv-label rv-muted head">{stackLabels.domains}</span>
@@ -98,7 +127,7 @@
 	.txt b { font-size: 15px; font-weight: 600; }
 	.txt .rv-muted { font-size: 13px; line-height: 1.4; }
 	@keyframes cascade { from { opacity: 0; transform: translateY(-6px); } }
-	.doms { display: none; }
+	.doms, .mtools { display: none; }
 	@media (max-width: 760px) {
 		.doms { display: flex; flex-direction: column; gap: 10px; padding: 12px 12px 14px; border-bottom: var(--rv-line-w) solid var(--rv-line); }
 		.dom-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
@@ -107,11 +136,21 @@
 		.fitem.on { background: var(--rv-ink); color: var(--rv-bg); }
 		.dom-name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 		.dom-name b { font-size: 17px; letter-spacing: -.01em; }
-		.grid { grid-template-columns: minmax(0, 1fr); min-height: 0; }
-		.dom-list, .tools-col .head { display: none; }
-		.tools-col { padding: 12px; }
-		.tools { grid-template-columns: minmax(0, 1fr); }
-		.ico { width: 36px; height: 36px; background: color-mix(in oklab, var(--b) 14%, transparent); color: var(--b); }
+		.grid { display: none; }
+		.mtools { display: block; margin: 0; padding: 4px 12px 8px; list-style: none; }
+		.mtools li + li { border-top: var(--rv-line-w) solid var(--rv-line); }
+		.mrow {
+			width: 100%; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto 14px; align-items: center; gap: 10px;
+			min-height: 44px; padding: 4px 0; border: 0; background: transparent; color: var(--rv-ink);
+			font: inherit; text-align: left;
+		}
+		button.mrow { cursor: pointer; }
+		.mtools .ico { width: 30px; height: 30px; border-radius: var(--rv-radius-sm); background: color-mix(in oklab, var(--b) 14%, transparent); color: var(--b); }
+		.mname { font-size: 15px; font-weight: 600; }
+		.mtag { padding: 1px 7px; border: var(--rv-line-w) solid var(--rv-line); border-radius: 999px; font-size: 10px; color: var(--rv-muted); white-space: nowrap; }
+		.mchev { font-size: 12px; color: var(--rv-turq-ink); transition: transform var(--rv-dur) var(--rv-ease); }
+		.mchev.up { transform: rotate(180deg); }
+		.mdetail { margin: 0; padding: 0 0 12px 40px; font-size: 13px; line-height: 1.45; animation: cascade .2s ease both; }
 	}
-	@media (prefers-reduced-motion: reduce) { .tool { animation: none; } }
+	@media (prefers-reduced-motion: reduce) { .tool, .mdetail { animation: none; } .mchev { transition: none; } }
 </style>
