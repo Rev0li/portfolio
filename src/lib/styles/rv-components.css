@@ -276,8 +276,9 @@ a { color: inherit; }
 		--rv-gutter: 20px;
 		--rv-section-gap: 48px;
 		--rv-text-h2: 44px;
-		--rv-text-hero: 54px;
+		--rv-text-hero: clamp(40px, 14vw, 54px); /* « DevOps & IA » tient sur une ligne dès 320 px */
 	}
+	:root:has(.rv-ticker) { --rv-top: 56px; } /* bandeau live masqué en mobile */
 	/* Sections : plus de plein écran, elles prennent la hauteur de leur contenu */
 	.rv-sec.screen { min-height: 0; justify-content: flex-start; padding-top: 48px; padding-bottom: 28px; }
 	.rv-sec.compact { gap: 22px; }
