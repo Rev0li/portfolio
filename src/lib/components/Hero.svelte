@@ -168,11 +168,14 @@
 		.middle :global(.moi) { flex: none; width: 228px; align-self: flex-end; margin-top: -6px; }
 		.pic { height: 196px; }
 		.pic img { width: 190px; height: 190px; }
-		.bottom { flex-direction: column; align-items: stretch; gap: 22px; padding-top: 20px; }
+		.bottom { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 22px; padding-top: 20px; }
 		.statement { font-size: 22px; letter-spacing: -.02em; }
-		.tools-row { flex-direction: column; align-items: stretch; gap: 22px; }
-		.peek { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; }
-		.tile { width: auto; height: auto; aspect-ratio: 1; }
+		.tools-row { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 22px; }
+		/* 8 logos sur une ligne, taille tirée de la largeur de la rangée (unités de conteneur), 52 px max.
+		   Colonnes sans retour à la ligne (nowrap) : avec flex-wrap, la rangée était écrasée et les logos
+		   débordaient sur le bouton stack (visible dès ~600 px). */
+		.peek { display: flex; flex: none; gap: 6px; container-type: inline-size; }
+		.tile { --s: min(52px, calc((100cqi - 42px) / 8)); width: var(--s); height: var(--s); flex: none; }
 		.tile svg { width: 20px; height: 20px; }
 		.stack-btn { width: 100%; min-width: 0; }
 		.stack { margin-top: -22px; }
