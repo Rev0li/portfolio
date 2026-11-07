@@ -1,0 +1,56 @@
+/**
+ * CSS propre au portfolio.
+ * Tokens, base de page et composants viennent de MyCss (CDN, version figée dans app.html).
+ * Ici : uniquement ce qui n'a de sens que sur ce site (bandeau live, sections plein écran,
+ * stickers, avatar chibi, réglages mobiles de la Home). Uniquement des tokens --rv-*.
+ */
+
+/* ── Hauteur collée en haut : barre 56 px (MyCss) + bandeau live de 32 px ── */
+:root:has(.rv-ticker) { --rv-top: 88px; }
+
+/* ── Sections « un écran » : remplissent exactement la fenêtre sous la barre du haut ;
+   titre en haut, question vers la suite en bas. Plus hautes si le contenu l'exige. ── */
+.rv-sec.screen {
+	box-sizing: border-box;
+	min-height: calc(100svh - var(--rv-top));
+	justify-content: space-between;
+	padding-top: clamp(32px, 6vh, 72px);
+	padding-bottom: clamp(16px, 2.5vh, 28px);
+}
+.rv-sec.screen > .rv-next { margin-top: 0; }
+.rv-sec.compact { gap: clamp(20px, 3.5vh, 44px); }
+.rv-sec.compact:not(.screen) { padding-top: 56px; padding-bottom: 28px; }
+.rv-sec.compact .rv-h2 { font-size: clamp(52px, 7vh, 72px); }
+.rv-sec.compact > .rv-next { margin-top: 0; padding-top: 4px; }
+.rv-sec.compact .rv-next-q { font-size: 24px; }
+
+/* ── Sticker kawaii (3 max sur le site) : penché, se redresse au survol ── */
+.rv-sticker {
+	display: inline-block; vertical-align: top;
+	width: 84px; height: 84px; margin: -18px 0 0 14px;
+	transform: rotate(var(--r, -8deg));
+	filter: drop-shadow(2px 3px 0 rgba(28, 26, 27, .18));
+	transition: transform var(--rv-dur) var(--rv-ease);
+}
+.rv-sticker:hover { transform: rotate(0deg) scale(1.08); }
+.rv-sticker svg { display: block; width: 100%; height: 100%; }
+
+/* ── Avatar : cadrage du portrait chibi détouré ── */
+.rv-avatar img { position: absolute; left: -19px; top: -12px; width: 74px; height: 74px; object-fit: fill; }
+
+/* ── Mobile (≤ 760 px) : pensé parcours par parcours, pas le PC rétréci (planche « Home · 390 ») ── */
+@media (max-width: 760px) {
+	:root {
+		--rv-gutter: 20px;
+		--rv-section-gap: 48px;
+		--rv-text-h2: clamp(34px, 11.5vw, 44px); /* 44 px dès ~380 px, moins sur très petit écran */
+		--rv-text-hero: clamp(40px, 14vw, 54px); /* « DevOps & IA » tient sur une ligne dès 320 px */
+	}
+	:root:has(.rv-ticker) { --rv-top: 56px; } /* bandeau live masqué en mobile */
+	/* Sections : plus de plein écran, elles prennent la hauteur de leur contenu */
+	.rv-sec.screen { min-height: 0; justify-content: flex-start; padding-top: 48px; padding-bottom: 28px; }
+	.rv-sec.compact { gap: 22px; }
+	.rv-sec.compact .rv-h2 { font-size: var(--rv-text-h2); }
+	.rv-sec.compact .rv-next-q { font-size: 21px; }
+	.rv-sticker { width: 56px; height: 56px; margin: -4px 0 0 8px; }
+}
