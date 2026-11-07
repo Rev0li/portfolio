@@ -8,7 +8,7 @@ déployé en conteneur Docker sur un NAS. Le style vient de [MyCss](https://gith
 ## Stack
 
 - **App** : SvelteKit 2 + Svelte 5 (runes), TypeScript — versions alignées sur rev0auth
-- **Style** : tokens `--rv-*` de MyCss
+- **Style** : MyCss v1.2.0 (tokens `--rv-*`, base, composants `.rv-*`) en CDN, plus `src/lib/styles/portfolio.css` pour le propre au site
 - **Infra** : Docker multi-stage (Node 22 Alpine, utilisateur non-root, système de fichiers en lecture seule), Docker Compose
 - **CI** : GitHub Actions — `svelte-check`, vitest, build, image Docker
 

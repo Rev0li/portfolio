@@ -9,7 +9,7 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 | Langage(s) | TypeScript | 6.x (aligné rev0auth) |
 | Framework(s) | SvelteKit + Svelte 5, adapter-node | Kit 2.57+, Svelte 5.55+ (aligné rev0auth) |
 | i18n | Paraglide JS (inlang), FR + EN | dernière stable au moment de PF-06 |
-| Style | Tokens MyCss (`rv-tokens.css`, CDN) + composants Rev0 (`src/lib/styles/rv-components.css`, futur MyCss v1.2) ; polices auto-hébergées (Fontsource) | MyCss v1.1.0 |
+| Style | MyCss en CDN, version figée : tokens (`rv-tokens.css`), base de page (`rv-base.css`), composants (`rv-components.css`) ; CSS propre au site dans `src/lib/styles/portfolio.css` ; polices auto-hébergées (Fontsource) | MyCss v1.2.0 |
 | Base de données | Aucune en v1 | — |
 | Infra / déploiement | Docker multi-stage (non-root, `read_only`) sur le NAS, port hôte 49154, reverse proxy + TLS sur le VPS via Tailscale | Node 22 |
 | CI / tests | GitHub Actions : `svelte-check` + vitest + build image | — |
@@ -110,6 +110,10 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
   de MyCss. Les composants sont d'abord écrits dans le portfolio
   (`rv-components.css`, classes `rv-*`), puis déplacés dans MyCss v1.2 une fois
   validés sur les vraies pages.
+  **Mise à jour 2026-11-07 (PF-25) :** fait. Les composants sont dans MyCss
+  v1.2.0 et chargés depuis le CDN ; `src/lib/styles/portfolio.css` ne garde
+  que le propre au site (bandeau live, sections plein écran, stickers, avatar
+  chibi, réglages mobiles).
 - **Pourquoi :** les composants se règlent plus vite sur les pages réelles ;
   MyCss ne reçoit que du validé, réutilisable par rev0auth et SongSurf.
 - **Polices :** auto-hébergées (Fontsource), aucune requête vers Google
