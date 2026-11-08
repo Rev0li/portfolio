@@ -133,7 +133,7 @@
 							<span class="rv-muted pitch">{p.pitch}</span>
 						</div>
 						<div class="cta">
-							<a class="rv-pill gel" href={p.href}>{p.cta} <span aria-hidden="true">{p.external ? '↗' : '→'}</span></a>
+							<a class="rv-pill gel" href={p.embed ?? p.href}>{p.cta} <span aria-hidden="true">{p.external && !p.embed ? '↗' : '→'}</span></a>
 						</div>
 					</div>
 				</div>
