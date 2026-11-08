@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { contact } from '$lib/content/home';
-	import StickerEnvelope from './StickerEnvelope.svelte';
+	import { asset } from '$lib/mycss';
 	import Window from './Window.svelte';
 </script>
 
@@ -9,7 +9,7 @@
 <section id="contact" class="rv-sec screen contact" data-theme="dark" aria-labelledby="h-contact">
 	<div class="head">
 		<span class="rv-label dim">{contact.number}</span>
-		<h2 id="h-contact" class="title">{contact.title}<StickerEnvelope /></h2>
+		<h2 id="h-contact" class="title">{contact.title}<img class="rv-sticker env" src={asset('stickers/envelope.svg')} alt="" style="--r: -6deg" /></h2>
 	</div>
 
 	<!-- Mobile : un gros bouton mail en premier, puis les liens -->
@@ -41,6 +41,8 @@
 </section>
 
 <style>
+	/* Sticker enveloppe : plus grand que l'onigiri (taille de la planche) */
+	.env { width: 110px; height: 110px; margin-top: 4px; }
 	.contact {
 		gap: clamp(28px, 4vh, 48px); padding-top: clamp(40px, 8vh, 96px); color: var(--rv-band-ink);
 		background:

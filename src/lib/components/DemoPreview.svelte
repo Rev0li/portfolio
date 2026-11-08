@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { projects, type ProjectPreview } from '$lib/content/home';
+	import { ico } from '$lib/mycss';
 
 	let { kind }: { kind: ProjectPreview } = $props();
 	const t = projects.previews;
@@ -30,7 +31,7 @@
 		</div>
 	{:else if kind === 'auth'}
 		<div class="pa">
-			<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
+			<i class="rv-ico" style:--ico={ico('ui', 'lock')} style:--rv-ico-size="22px" aria-hidden="true"></i>
 			<span class="pa-f"></span><span class="pa-f"></span>
 			<span class="pa-ok rv-mono">{t.authOk}</span>
 		</div>

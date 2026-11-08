@@ -9,7 +9,7 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 | Langage(s) | TypeScript | 6.x (aligné rev0auth) |
 | Framework(s) | SvelteKit + Svelte 5, adapter-node | Kit 2.57+, Svelte 5.55+ (aligné rev0auth) |
 | i18n | Paraglide JS (inlang), FR + EN | dernière stable au moment de PF-06 |
-| Style | MyCss en CDN, version figée : tokens (`rv-tokens.css`), base de page (`rv-base.css`), composants (`rv-components.css`) ; CSS propre au site dans `src/lib/styles/portfolio.css` ; polices auto-hébergées (Fontsource) | MyCss v1.2.0 |
+| Style | MyCss en CDN, version figée : tokens (`rv-tokens.css`), base de page (`rv-base.css`), composants (`rv-components.css`), stickers, icônes et favicon (`assets/`) ; CSS propre au site dans `src/lib/styles/portfolio.css` ; polices auto-hébergées (Fontsource) | MyCss v1.3.0 |
 | Base de données | Aucune en v1 | — |
 | Infra / déploiement | Docker multi-stage (non-root, `read_only`) sur le NAS, port hôte 49154, reverse proxy + TLS sur le VPS via Tailscale | Node 22 |
 | CI / tests | GitHub Actions : `svelte-check` + vitest + build image | — |
@@ -114,6 +114,11 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
   v1.2.0 et chargés depuis le CDN ; `src/lib/styles/portfolio.css` ne garde
   que le propre au site (bandeau live, sections plein écran, stickers, avatar
   chibi, réglages mobiles).
+  **Mise à jour 2026-11-08 (PF-26) :** stickers, icônes (outils, domaines,
+  thème, cadenas) et favicon viennent aussi de MyCss v1.3.0 (`assets/`, classe
+  `.rv-ico`). `src/lib/mycss.ts` donne la version et les adresses ;
+  `content/icons.ts` ne garde que les clés et couleurs de marque. Un test
+  vérifie que `app.html` et `mycss.ts` pointent sur la même version.
 - **Pourquoi :** les composants se règlent plus vite sur les pages réelles ;
   MyCss ne reçoit que du validé, réutilisable par rev0auth et SongSurf.
 - **Polices :** auto-hébergées (Fontsource), aucune requête vers Google

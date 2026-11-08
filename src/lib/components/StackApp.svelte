@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { domainIcons, icons } from '$lib/content/icons';
+	import { domainIcons, toolColors, toolKey } from '$lib/content/icons';
+	import { ico } from '$lib/mycss';
 	import { stack, stackLabels } from '$lib/content/home';
 	import { splitWhere } from '$lib/toolwhere';
 	import Window from './Window.svelte';
@@ -15,11 +16,8 @@
 		openTool = null;
 	}
 
-	const brand = (key: string) => {
-		const hex = (icons[key] ?? icons.spark)[0];
-		return hex ? `#${hex}` : 'var(--rv-turq)';
-	};
-	const path = (key: string) => (icons[key] ?? icons.spark)[1];
+	const brand = (key: string) => toolColors[toolKey(key)] ?? 'var(--rv-turq)';
+	const tool = (key: string) => ico('tools', toolKey(key));
 </script>
 
 <Window title={stackLabels.title(count)}>
@@ -36,7 +34,7 @@
 					title={domain}
 					onclick={() => pickDomain(i)}
 				>
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={domainIcons[i]} /></svg>
+					<i class="rv-ico" style:--ico={ico('ui', domainIcons[i])} aria-hidden="true"></i>
 				</button>
 			{/each}
 		</div>
@@ -51,7 +49,7 @@
 			{@const w = splitWhere(where)}
 			<li style:--b={brand(icon)}>
 				{#snippet row()}
-					<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d={path(icon)} /></svg></span>
+					<span class="ico" aria-hidden="true"><i class="rv-ico" style:--ico={tool(icon)} style:--rv-ico-size="18px"></i></span>
 					<b class="mname">{name}</b>
 					{#if w.tag}<span class="rv-label mtag">{w.tag}</span>{/if}
 				{/snippet}
@@ -81,7 +79,7 @@
 				<ul class="tools">
 					{#each stack[current][1] as [name, where, icon], i (name)}
 						<li class="tool" style:--d="{i * 35}ms" style:--b={brand(icon)}>
-							<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d={path(icon)} /></svg></span>
+							<span class="ico" aria-hidden="true"><i class="rv-ico" style:--ico={tool(icon)} style:--rv-ico-size="22px"></i></span>
 							<span class="txt"><b>{name}</b><span class="rv-muted">{where}</span></span>
 						</li>
 					{/each}
@@ -121,7 +119,6 @@
 		background: color-mix(in oklab, var(--rv-ink) 6%, transparent); color: var(--rv-ink);
 		transition: background-color var(--rv-dur) var(--rv-ease), color var(--rv-dur) var(--rv-ease);
 	}
-	.ico svg { fill: currentColor; }
 	.tool:hover .ico { background: color-mix(in oklab, var(--b) 16%, transparent); color: var(--b); }
 	.txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 	.txt b { font-size: 15px; font-weight: 600; }
@@ -134,7 +131,7 @@
 		/* 44 px de haut, largeur = la colonne : carré vers 390 px, plus étroit sur très petit écran
 		   (avec aspect-ratio + min-height, la largeur était forcée à 44 px et les touches se chevauchaient) */
 		.fitem { height: 44px; min-width: 0; display: grid; place-items: center; padding: 0; border-radius: var(--rv-radius-md); -webkit-tap-highlight-color: transparent; }
-		.fitem svg { width: 20px; height: 20px; }
+		.fitem .rv-ico { --rv-ico-size: 20px; }
 		.fitem.on { background: var(--rv-ink); color: var(--rv-bg); }
 		.dom-name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 		.dom-name b { font-size: 17px; letter-spacing: -.01em; }

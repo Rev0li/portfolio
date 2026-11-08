@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import { hero, peek, stack, stackLabels } from '$lib/content/home';
-	import { icons } from '$lib/content/icons';
+	import { toolColors } from '$lib/content/icons';
+	import { ico } from '$lib/mycss';
 	import ScrambleName from './ScrambleName.svelte';
 	import StackApp from './StackApp.svelte';
 	import Window from './Window.svelte';
@@ -14,9 +15,8 @@
 	let stackEl: HTMLElement;
 
 	const tiles = peek.map(([name, key, tile]) => {
-		const [hex, d] = icons[key];
-		const brand = `#${key === 'angular' ? 'DD0031' : hex}`;
-		return { name, d, brand, tile: tile ?? `color-mix(in oklab, ${brand} 12%, var(--rv-surface))` };
+		const brand = key === 'angular' ? '#DD0031' : (toolColors[key] ?? 'var(--rv-turq)');
+		return { name, icon: ico('tools', key), brand, tile: tile ?? `color-mix(in oklab, ${brand} 12%, var(--rv-surface))` };
 	});
 
 	async function toggle() {
@@ -70,7 +70,7 @@
 			<ul class="peek" aria-label={stackLabels.peek}>
 				{#each tiles as t (t.name)}
 					<li class="tile" style:--b={t.brand} style:--t={t.tile} title={t.name}>
-						<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d={t.d} /></svg>
+						<i class="rv-ico" style:--ico={t.icon} aria-hidden="true"></i>
 						<span class="rv-sr">{t.name}</span>
 					</li>
 				{/each}
@@ -131,7 +131,7 @@
 		background: var(--t); color: var(--b);
 		transition: transform var(--rv-dur) var(--rv-ease), border-color var(--rv-dur) var(--rv-ease);
 	}
-	.tile svg { fill: currentColor; }
+	.tile .rv-ico { --rv-ico-size: 22px; }
 	.tile:hover { border-color: var(--b); transform: translateY(-2px); }
 	.stack-btn { min-width: 228px; justify-content: center; }
 	.chev { display: inline-block; transition: transform var(--rv-dur) var(--rv-ease); }
@@ -176,7 +176,7 @@
 		   débordaient sur le bouton stack (visible dès ~600 px). */
 		.peek { display: flex; flex: none; gap: 6px; container-type: inline-size; }
 		.tile { --s: min(52px, calc((100cqi - 42px) / 8)); width: var(--s); height: var(--s); flex: none; }
-		.tile svg { width: 20px; height: 20px; }
+		.tile .rv-ico { --rv-ico-size: 20px; }
 		.stack-btn { width: 100%; min-width: 0; }
 		.stack { margin-top: -22px; }
 		.discover { gap: 4px; padding: 4px 18px; font-size: 16px; }
