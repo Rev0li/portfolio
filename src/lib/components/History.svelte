@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { history } from '$lib/content/home';
 	import NextQuestion from './NextQuestion.svelte';
-	import StickerOnigiri from './StickerOnigiri.svelte';
+	import { asset } from '$lib/mycss';
 </script>
 
 <section id="histoire" class="rv-sec rv-hair screen history" aria-labelledby="h-histoire">
 	<div class="head">
 		<span class="rv-label rv-muted">{history.number}</span>
-		<h2 id="h-histoire" class="rv-h2">{history.title[0]}<br />{history.title[1]}<StickerOnigiri /></h2>
+		<h2 id="h-histoire" class="rv-h2">{history.title[0]}<br />{history.title[1]}<img class="rv-sticker" src={asset('stickers/onigiri.svg')} alt="" style="--r: -9deg" /></h2>
 	</div>
 
 	<div class="xp">
