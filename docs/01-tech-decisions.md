@@ -28,7 +28,7 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 ## ADR-001 — Reconstruire en SvelteKit, abandonner Rust/Axum
 - **Contexte :** besoin de FR/EN, d'un formulaire de contact, d'un bandeau de
   données live, et d'une fusion future dans le site unifié rev0auth (SvelteKit).
-- **Décision :** le repo `~/dev/portfolio` repart de zéro en SvelteKit.
+- **Décision :** le repo `~/dev/projets/portfolio` repart de zéro en SvelteKit.
 - **Pourquoi :** même stack que rev0auth, donc la fusion se fera en copiant des
   routes ; endpoints serveur natifs pour le contact et le live ; i18n mature.
 - **Alternatives écartées :** garder Rust/Axum (i18n et fusion plus lourdes) ;
