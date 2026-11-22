@@ -126,7 +126,11 @@ export type Project = {
 	cta: string;
 	/** lien vers un autre site : s'ouvre avec ↗ au lieu de → */
 	external?: boolean;
+	/** version PC : page du portfolio qui embarque le projet (href reste le lien direct en mobile et tablette) */
+	embed?: string;
 };
+
+const kataUrl = 'https://kata-io.vercel.app';
 
 export const projects = {
 	number: '[ 02 ]',
@@ -142,7 +146,7 @@ export const projects = {
 		{ n: '02', preview: 'infra', name: 'Infra self-host', line: 'NAS + VPS : le serveur qui fait tourner ce site.', app: 'infra.app', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Suivez une requête à travers le pare-feu, le reverse proxy, l’auth et le tunnel, jusqu’à la maison.', href: '/projets/infra', cta: 'Lancer la démo' },
 		{ n: '03', preview: 'auth', name: 'rev0auth', line: 'La porte d’entrée de tous mes services.', app: 'rev0auth.app', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Connectez-vous avec un compte démo : une page vous est refusée, puis ouverte avec le bon rôle.', href: '/projets/rev0auth', cta: 'Lancer la démo' },
 		{ n: '04', preview: 'song', name: 'SongSurf', line: 'Trouver, ranger, écouter sa musique.', app: 'songsurf.app', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Une démo guidée avec un titre libre de droits. Envie d’accéder à la vraie version ? Écrivez-moi.', href: '/projets/songsurf', cta: 'Lancer la démo' },
-		{ n: '05', preview: 'kata', name: 'Kata.io', line: 'Duel de kung-fu en 1 contre 1, dans le navigateur.', app: 'kata.io', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Frappez, parez, esquivez : envoyez l’adversaire dans le lac. Seul contre les gardiens du temple, ou en duel avec un ami.', href: 'https://kata-io.vercel.app', cta: 'Jouer à Kata.io', external: true }
+		{ n: '05', preview: 'kata', name: 'Kata.io', line: 'Duel de kung-fu en 1 contre 1, dans le navigateur.', app: 'kata.io', kind: 'Projet perso', kindShort: 'Perso', pitch: 'Frappez, parez, esquivez : envoyez l’adversaire dans le lac. Seul contre les gardiens du temple, ou en duel avec un ami.', href: kataUrl, cta: 'Jouer à Kata.io', external: true, embed: '/projets/kata' }
 	] satisfies Project[],
 	previews: {
 		cicdTop: 'git push · commit a3f9c1',
@@ -219,4 +223,20 @@ export const live = {
 	latency: 'temps de réponse',
 	deployed: 'dernier déploiement',
 	commits: 'commits publics cette semaine'
+} as const;
+
+/** Page projet Kata.io : le jeu dans une fenêtre, sur ordinateur. */
+export const kataPage = {
+	url: kataUrl,
+	title: 'Kata.io',
+	back: 'Tous les projets',
+	line: 'Kung-fu dans le navigateur, contre les gardiens du temple.',
+	stack: 'Phaser 4 · TypeScript · Vite · Vercel',
+	window: 'kata.io',
+	frameTitle: 'Jeu Kata.io',
+	launch: 'Lancer le jeu',
+	launchHint: 'Se joue ici, sans quitter le site.',
+	openTab: 'Ouvrir dans un onglet',
+	small: 'Le jeu s’ouvre à part sur ce format d’écran.',
+	play: 'Jouer à Kata.io'
 } as const;

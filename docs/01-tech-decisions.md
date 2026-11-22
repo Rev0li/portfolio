@@ -28,7 +28,7 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 ## ADR-001 — Reconstruire en SvelteKit, abandonner Rust/Axum
 - **Contexte :** besoin de FR/EN, d'un formulaire de contact, d'un bandeau de
   données live, et d'une fusion future dans le site unifié rev0auth (SvelteKit).
-- **Décision :** le repo `~/dev/portfolio` repart de zéro en SvelteKit.
+- **Décision :** le repo `~/dev/projets/portfolio` repart de zéro en SvelteKit.
 - **Pourquoi :** même stack que rev0auth, donc la fusion se fera en copiant des
   routes ; endpoints serveur natifs pour le contact et le live ; i18n mature.
 - **Alternatives écartées :** garder Rust/Axum (i18n et fusion plus lourdes) ;
@@ -153,3 +153,15 @@ décision écrite ici sans ajouter une nouvelle entrée qui la remplace.
 - **Conséquences :** un peu de HTML en double sur 4 sections ; tout doit tenir
   dès 320 px de large. Taille tablette à traiter à part. Le projet 05 devient
   Kata.io (lien vers le jeu en ligne) à la place de Transcendence.
+
+## ADR-011 — Kata.io joué dans une fenêtre du portfolio
+- **Contexte :** le lien vers le jeu faisait sortir le visiteur du portfolio.
+- **Décision (2026-11-08) :** page `/projets/kata` sur ordinateur (≥ 1024 px) :
+  fenêtre rétro avec une iframe vers le jeu, chargée seulement au clic sur
+  « Lancer le jeu », avec `fullscreen`, `autoplay` et `clipboard-write` autorisés.
+  Sur tablette et mobile, le lien direct vers le jeu ne change pas.
+- **Pourquoi :** le visiteur reste sur le site, sans alourdir la page tant qu'il
+  ne joue pas. Au téléphone, le jeu demande le paysage : l'iframe n'apporte rien.
+- **Conséquences :** la progression dans l'iframe est séparée de celle du site
+  direct (stockage isolé par les navigateurs). Le classement reste affiché tel
+  quel (choix assumé).

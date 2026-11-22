@@ -63,4 +63,4 @@ Visiteur ──HTTPS──▶ VPS (reverse proxy, TLS)
   page devient `/`, le login membre passe sur `/login`.
 - Domaine pro au moment de la fusion.
 - Vitrine SongSurf interactive (« la run », billet d'accès, voir
-  `~/dev/SongSurf/docs/VITRINE_IDEAS.md`) quand SongSurf V1 + rôle `demo` existeront.
+  `~/dev/projets/SongSurf/docs/VITRINE_IDEAS.md`) quand SongSurf V1 + rôle `demo` existeront.

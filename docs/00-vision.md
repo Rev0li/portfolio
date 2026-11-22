@@ -1,6 +1,6 @@
 # 00 — Vision
 
-> Phase 1 du méga-projet **Collapse** (`~/dev/Collapse/`, chantier `portfolio.md`).
+> Phase 1 du méga-projet **Collapse** (`~/dev/projets/Collapse/`, chantier `portfolio.md`).
 > Cadrage fait le 2026-10-16.
 
 ## Le problème
